@@ -18,6 +18,8 @@ export type Friend = {
   name: string;
   address: string;
   location: Coordinate;
+  /** Whether this friend participates in the current gathering; older plans default to true. */
+  enabled?: boolean;
   /** Missing on older saved plans; interpreted as transit. */
   travelMode?: TravelMode;
   /** Higher values protect this person's convenience; lower values mean willingness to travel. */

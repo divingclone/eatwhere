@@ -180,6 +180,7 @@ export const districts: District[] = [
 export const defaultFriends: Friend[] = [
   {
     id: 'friend-1',
+    enabled: true,
     name: '阿杰',
     address: '宝安中心站附近',
     travelMode: 'transit',
@@ -189,6 +190,7 @@ export const defaultFriends: Friend[] = [
   },
   {
     id: 'friend-2',
+    enabled: true,
     name: '小林',
     address: '深圳北站附近',
     travelMode: 'transit',
@@ -198,6 +200,7 @@ export const defaultFriends: Friend[] = [
   },
   {
     id: 'friend-3',
+    enabled: true,
     name: '小周',
     address: '大运站附近',
     travelMode: 'transit',

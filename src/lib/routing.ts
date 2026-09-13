@@ -1,4 +1,5 @@
 import { districts, metroLines, metroStations } from './data';
+import { getParticipatingFriends } from './plan';
 import type {
   Coordinate,
   District,
@@ -475,15 +476,18 @@ export function rankDistricts(
   strategy: 'balanced' | 'total' | 'fair',
   drivingRoutes?: DrivingRouteOverrides,
 ): Recommendation[] {
-  if (friends.length === 0) return [];
-  const weights = friends.map((friend) =>
+  const participatingFriends = getParticipatingFriends(friends);
+  if (participatingFriends.length < 2) return [];
+  const weights = participatingFriends.map((friend) =>
     Number.isFinite(friend.weight) ? Math.max(0.1, friend.weight) : 1,
   );
   const weightSum = weights.reduce((sum, weight) => sum + weight, 0);
-  const averageWeight = weightSum / friends.length;
+  const averageWeight = weightSum / participatingFriends.length;
   return districts
     .map((district): Recommendation => {
-      const routes = friends.map((friend) => planRoute(friend, district, drivingRoutes));
+      const routes = participatingFriends.map((friend) =>
+        planRoute(friend, district, drivingRoutes),
+      );
       if (routes.some((route) => !route.reachable)) {
         return {
           district,

@@ -22,6 +22,7 @@
     selectedId,
     onselect,
     pickingFriendId,
+    pickingFriendName = '',
     onpick,
   }: {
     friends: Friend[];
@@ -29,6 +30,7 @@
     selectedId: string;
     onselect: (id: string) => void;
     pickingFriendId: string | null;
+    pickingFriendName?: string;
     onpick: (location: Coordinate) => void;
   } = $props();
 
@@ -45,6 +47,7 @@
   let tileUnavailable = $state(false);
   let zoom = $state(11);
   let firstFit = false;
+  let fittedFriendIds = '';
   const stationsById = new Map(metroStations.map((station) => [station.id, station]));
   const defaultBounds: L.LatLngBoundsExpression = [
     [22.507, 113.866],
@@ -96,6 +99,23 @@
     }
   }
 
+  function fitParticipants() {
+    if (!map) return;
+    const currentFriendIds = friends.map((friend) => friend.id).join('|');
+    if (friends.length === 0) {
+      fittedFriendIds = '';
+      return;
+    }
+    // Mobile tabs hide the map. Fit the new roster once its actual size is available.
+    if (!container.clientWidth || !container.clientHeight) return;
+    if (firstFit && currentFriendIds === fittedFriendIds) return;
+    const points: L.LatLngTuple[] = friends.map((friend) => latLng(friend.location));
+    if (recommendations[0]) points.push(latLng(recommendations[0].district.location));
+    map.fitBounds(L.latLngBounds(points), { padding: [76, 90], maxZoom: 12, animate: firstFit });
+    firstFit = true;
+    fittedFriendIds = currentFriendIds;
+  }
+
   onMount(() => {
     map = L.map(container, {
       center: [22.595, 114.057],
@@ -143,8 +163,10 @@
       legendOpen = false;
     });
     const resizeObserver = new ResizeObserver((entries) => {
-      if (entries[0]?.contentRect.width && entries[0]?.contentRect.height)
+      if (entries[0]?.contentRect.width && entries[0]?.contentRect.height) {
         map?.invalidateSize({ pan: false });
+        fitParticipants();
+      }
     });
     resizeObserver.observe(container);
     zoom = map.getZoom();
@@ -159,14 +181,7 @@
 
   $effect(() => {
     if (!ready || !map) return;
-    const currentFriends = friends;
-    const firstRecommendation = recommendations[0];
-    if (!firstFit && currentFriends.length > 0 && firstRecommendation) {
-      firstFit = true;
-      const points: L.LatLngTuple[] = currentFriends.map((friend) => latLng(friend.location));
-      points.push(latLng(firstRecommendation.district.location));
-      map.fitBounds(L.latLngBounds(points), { padding: [45, 80], maxZoom: 12, animate: false });
-    }
+    fitParticipants();
   });
 
   $effect(() => {
@@ -408,7 +423,9 @@
 
   {#if pickingFriendId}
     <div class="picking-banner" role="status">
-      <MousePointer2 size={16} /><span>点击地图，设置{pickedFriend?.name || '朋友'}的出发点</span>
+      <MousePointer2 size={16} /><span
+        >点击地图，设置{pickedFriend?.name || pickingFriendName || '朋友'}的出发点</span
+      >
     </div>
   {/if}
 

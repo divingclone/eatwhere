@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
   import {
     Utensils,
     MapPin,
@@ -23,6 +23,7 @@
     CheckCheck,
     Car,
     LoaderCircle,
+    Search,
   } from 'lucide-svelte';
   import CityMap from './lib/components/CityMap.svelte';
   import AddressInput from './lib/components/AddressInput.svelte';
@@ -30,7 +31,7 @@
   import { defaultFriends, districts, dataInfo, metroLines, metroStations } from './lib/data';
   import { rankDistricts } from './lib/routing';
   import { loadDrivingRoutes } from './lib/driving';
-  import { parseSavedPlan } from './lib/plan';
+  import { parseSavedPlan, getParticipatingFriends, MAX_SAVED_FRIENDS } from './lib/plan';
   import type { Friend, Coordinate, TravelMode, DrivingRouteOverrides } from './lib/types';
 
   type Strategy = 'balanced' | 'total' | 'fair';
@@ -63,22 +64,44 @@
   let drivingError = $state('');
   let drivingRetry = $state(0);
   let lastDrivingRetry = 0;
-  const hasDrivers = $derived(friends.some((friend) => friend.travelMode === 'driving'));
+  let friendSearch = $state('');
+  let editingFriendId = $state<string | null>(null);
+  let editingNameId = $state<string | null>(null);
+  const participatingFriends = $derived(getParticipatingFriends(friends));
+  const canPlan = $derived(participatingFriends.length >= 2);
+  const shownFriends = $derived(
+    friends.filter(
+      (friend) =>
+        friend.id === editingNameId ||
+        `${friend.name} ${friend.address}`
+          .toLocaleLowerCase()
+          .includes(friendSearch.trim().toLocaleLowerCase()),
+    ),
+  );
+  const hasDrivers = $derived(
+    canPlan && participatingFriends.some((friend) => friend.travelMode === 'driving'),
+  );
   // Only location/mode changes trigger network work, never names, weights or strategy.
   const drivingOrigins = $derived(
     JSON.stringify(
-      friends.filter((friend) => friend.travelMode === 'driving').map((friend) => friend.location),
+      canPlan
+        ? participatingFriends
+            .filter((friend) => friend.travelMode === 'driving')
+            .map((friend) => friend.location)
+        : [],
     ),
   );
   const recommendations = $derived(
-    rankDistricts(friends, strategy, drivingRoutes).filter((r) => Number.isFinite(r.score)),
+    rankDistricts(participatingFriends, strategy, drivingRoutes).filter((r) =>
+      Number.isFinite(r.score),
+    ),
   );
   const selected = $derived(
     recommendations.find((r) => r.district.id === selectedId) ?? recommendations[0],
   );
   const best = $derived(recommendations[0]);
   const visibleRecommendations = $derived(showAll ? recommendations : recommendations.slice(0, 4));
-  const changedWeights = $derived(friends.some((f) => f.weight !== 1));
+  const changedWeights = $derived(participatingFriends.some((f) => f.weight !== 1));
 
   function notify(message: string) {
     toast = message;
@@ -91,31 +114,60 @@
     detailOpen = false;
   }
   function addFriend() {
-    if (friends.length >= 8) return;
+    if (friends.length >= MAX_SAVED_FRIENDS) return;
     const station = metroStations.find((s) => s.name === '五和') ?? metroStations[0];
     const used = new Set(friends.map((f) => f.color));
+    const id = crypto.randomUUID();
+    let number = friends.length + 1;
+    while (friends.some((friend) => friend.name === `朋友 ${number}`)) number += 1;
     friends = [
       ...friends,
       {
-        id: crypto.randomUUID(),
-        name: `朋友 ${friends.length + 1}`,
+        id,
+        name: `朋友 ${number}`,
         address: station.name + '地铁站',
         location: { ...station.location },
-        color: palette.find((c) => !used.has(c)) ?? palette[0],
+        color: palette.find((c) => !used.has(c)) ?? palette[friends.length % palette.length],
         weight: 1,
         travelMode: 'transit',
+        enabled: true,
       },
     ];
     selectedId = '';
     detailOpen = false;
+    friendSearch = '';
+    void tick().then(() =>
+      document.getElementById(`friend-card-${id}`)?.scrollIntoView({ block: 'nearest' }),
+    );
     notify('已添加朋友，点击地址设置出发点');
   }
   function removeFriend(id: string) {
-    if (friends.length <= 2) return;
     friends = friends.filter((f) => f.id !== id);
     if (pickingFriendId === id) pickingFriendId = null;
+    if (editingFriendId === id) editingFriendId = null;
     selectedId = '';
     detailOpen = false;
+  }
+  function toggleAttendance(id: string) {
+    friends = friends.map((friend) =>
+      friend.id === id ? { ...friend, enabled: friend.enabled === false } : friend,
+    );
+    if (pickingFriendId === id) pickingFriendId = null;
+    if (editingFriendId === id) editingFriendId = null;
+    selectedId = '';
+    detailOpen = false;
+  }
+  function clearAttendance() {
+    friends = friends.map((friend) => ({ ...friend, enabled: false }));
+    selectedId = '';
+    detailOpen = false;
+    pickingFriendId = null;
+    editingFriendId = null;
+  }
+  function showFriendPicker() {
+    mobileTab = 'friends';
+    friendSearch = '';
+    void tick().then(() => document.getElementById('friend-search')?.focus());
   }
   function pick(location: Coordinate) {
     if (!pickingFriendId) return;
@@ -143,6 +195,10 @@
     mobileTab = 'map';
   }
   function openDistrict(id: string) {
+    if (!canPlan) {
+      showFriendPicker();
+      return;
+    }
     selectedId = id;
     detailOpen = true;
     mobileTab = 'results';
@@ -163,6 +219,8 @@
     selectedId = '';
     detailOpen = false;
     pickingFriendId = null;
+    editingFriendId = null;
+    friendSearch = '';
     resetDialog.close();
     notify('已恢复三人示例计划');
   }
@@ -267,7 +325,7 @@
 
   <nav class="mobile-tabs" aria-label="规划视图">
     <button class:active={mobileTab === 'friends'} onclick={() => (mobileTab = 'friends')}
-      ><UsersRound size={16} />朋友 · {friends.length}</button
+      ><UsersRound size={16} />参加 · {participatingFriends.length}</button
     ><button class:active={mobileTab === 'map'} onclick={() => (mobileTab = 'map')}
       ><MapPin size={16} />地图</button
     ><button class:active={mobileTab === 'results'} onclick={() => (mobileTab = 'results')}
@@ -276,12 +334,14 @@
   </nav>
 
   <div class="workspace">
-    <aside class="friends-panel" class:mobile-visible={mobileTab === 'friends'}>
+    <aside class="friends-panel compact-friends" class:mobile-visible={mobileTab === 'friends'}>
       <div class="panel-heading">
         <div class="panel-title">
           <UsersRound size={18} />
           <h2>这次，和谁一起？</h2>
-          <span class="count-badge">{friends.length}</span>
+          <span class="count-badge" aria-label={`本次 ${participatingFriends.length} 人参加`}
+            >{participatingFriends.length}</span
+          >
         </div>
         <button
           class="icon-button reset-button"
@@ -290,11 +350,32 @@
           onclick={() => resetDialog.showModal()}><RotateCcw size={15} /></button
         >
       </div>
-      <p class="panel-subtitle">添加出发点，找到大家的交集。</p>
+      <p class="panel-subtitle">
+        已保存 {friends.length} 位 · 本次 {participatingFriends.length} 位参加
+      </p>
+      <div class="friends-toolbar">
+        <label class="friend-search"
+          ><Search size={14} /><input
+            id="friend-search"
+            aria-label="查找已保存的朋友"
+            placeholder="查找朋友或地址"
+            bind:value={friendSearch}
+          /></label
+        >
+        <button
+          class="clear-attendance"
+          disabled={!participatingFriends.length}
+          onclick={clearAttendance}
+          title="取消所有朋友本次参加，保留全部资料">全部取消</button
+        >
+      </div>
       <div class="friends-list">
-        {#each friends as friend, i (friend.id)}
+        {#each shownFriends as friend, i (friend.id)}
           <article
+            id={`friend-card-${friend.id}`}
             class="friend-card"
+            class:inactive={friend.enabled === false}
+            class:is-editing={editingFriendId === friend.id}
             class:picking={pickingFriendId === friend.id}
             style={`--friend-color:${friend.color}`}
           >
@@ -304,68 +385,115 @@
                 aria-label={`朋友 ${i + 1} 的名字`}
                 maxlength="12"
                 bind:value={friend.name}
+                onfocus={() => (editingNameId = friend.id)}
                 onblur={() => {
                   if (!friend.name.trim()) friend.name = `朋友 ${i + 1}`;
+                  editingNameId = null;
                 }}
-              /><button
+              />
+              <button
+                type="button"
+                class="friend-attendance"
+                role="switch"
+                aria-checked={friend.enabled !== false}
+                aria-label={`${friend.name}本次参加`}
+                onclick={() => toggleAttendance(friend.id)}
+              >
+                <span class="attendance-track" aria-hidden="true"></span><span
+                  >{friend.enabled !== false ? '参加' : '未参加'}</span
+                >
+              </button>
+              <button
                 class="icon-button friend-remove"
                 aria-label={`移除${friend.name}`}
-                disabled={friends.length <= 2}
+                title="删除这位朋友的保存资料"
                 onclick={() => removeFriend(friend.id)}><X size={14} /></button
               >
             </div>
-            <AddressInput
-              id={friend.id}
-              address={friend.address}
-              onchange={(address, location) => updateLocation(friend.id, address, location)}
-              onpick={() => beginPick(friend.id)}
-            />
-            <div class="travel-mode-options" role="group" aria-label={`${friend.name}的出行方式`}>
-              <button
-                class:active={friend.travelMode !== 'driving'}
-                aria-pressed={friend.travelMode !== 'driving'}
-                onclick={() => setTravelMode(friend.id, 'transit')}
-                ><TrainFront size={13} />步行 + 地铁</button
-              >
-              <button
-                class:active={friend.travelMode === 'driving'}
-                aria-pressed={friend.travelMode === 'driving'}
-                onclick={() => setTravelMode(friend.id, 'driving')}
-                ><Car size={13} />开车 / 打车</button
-              >
-            </div>
-            <div class="friend-preference">
-              <span
-                >通勤优先级 <button
-                  class="inline-help"
-                  aria-label="了解通勤权重"
-                  onclick={() => helpDialog.showModal()}><Info size={12} /></button
-                ></span
-              ><strong>{friend.weight.toFixed(1)}<span>×</span></strong>
-            </div>
-            <input
-              class="weight-slider"
-              type="range"
-              min="0.2"
-              max="2"
-              step="0.1"
-              bind:value={friend.weight}
-              aria-label={`${friend.name}的通勤优先级`}
-              aria-valuetext={`${friend.weight.toFixed(1)}倍，${weightLabel(friend.weight)}`}
-              style={`--range-progress:${((friend.weight - 0.2) / 1.8) * 100}%`}
-            />
-            <div class="weight-labels"><span>我多走一点</span><span>照顾我一点</span></div>
+            {#if friend.enabled !== false || editingFriendId === friend.id}
+              <AddressInput
+                id={friend.id}
+                address={friend.address}
+                onchange={(address, location) => updateLocation(friend.id, address, location)}
+                onpick={() => beginPick(friend.id)}
+              />
+              <div class="travel-mode-options" role="group" aria-label={`${friend.name}的出行方式`}>
+                <button
+                  class:active={friend.travelMode !== 'driving'}
+                  aria-pressed={friend.travelMode !== 'driving'}
+                  onclick={() => setTravelMode(friend.id, 'transit')}
+                  ><TrainFront size={13} />步行 + 地铁</button
+                >
+                <button
+                  class:active={friend.travelMode === 'driving'}
+                  aria-pressed={friend.travelMode === 'driving'}
+                  onclick={() => setTravelMode(friend.id, 'driving')}
+                  ><Car size={13} />开车 / 打车</button
+                >
+              </div>
+              <div class="friend-weight-row">
+                <span class="weight-caption"
+                  >优先级 <button
+                    class="inline-help"
+                    aria-label="了解通勤权重"
+                    onclick={() => helpDialog.showModal()}><Info size={12} /></button
+                  ></span
+                >
+                <input
+                  class="weight-slider"
+                  type="range"
+                  min="0.2"
+                  max="2"
+                  step="0.1"
+                  bind:value={friend.weight}
+                  aria-label={`${friend.name}的通勤优先级`}
+                  aria-valuetext={`${friend.weight.toFixed(1)}倍，${weightLabel(friend.weight)}`}
+                  title="向左：我多花一点时间；向右：更照顾我"
+                  style={`--range-progress:${((friend.weight - 0.2) / 1.8) * 100}%`}
+                />
+                <strong class="weight-value" title={weightLabel(friend.weight)}
+                  >{friend.weight.toFixed(1)}×</strong
+                >
+              </div>
+              {#if friend.enabled === false}<button
+                  class="finish-editing"
+                  onclick={() => {
+                    editingFriendId = null;
+                    if (pickingFriendId === friend.id) pickingFriendId = null;
+                  }}>收起资料</button
+                >{/if}
+            {:else}
+              <div class="inactive-friend-summary">
+                <p class="friend-address-summary" title={friend.address}>{friend.address}</p>
+                <div class="inactive-friend-meta">
+                  <span
+                    >{friend.travelMode === 'driving' ? '开车 / 打车' : '步行 + 地铁'} · 优先级 {friend.weight.toFixed(
+                      1,
+                    )}×</span
+                  ><button class="edit-friend" onclick={() => (editingFriendId = friend.id)}
+                    >编辑资料</button
+                  >
+                </div>
+              </div>
+            {/if}
           </article>
         {/each}
+        {#if !shownFriends.length}<p class="empty-friends">
+            {friends.length
+              ? '没有找到匹配的朋友，试试名字或地址。'
+              : '先保存朋友的出发点，下次约饭直接勾选。'}
+          </p>{/if}
       </div>
-      <button class="add-friend" onclick={addFriend} disabled={friends.length >= 8}
-        ><Plus size={17} />{friends.length >= 8 ? '已添加 8 位朋友' : '再叫上一位朋友'}</button
+      <button class="add-friend" onclick={addFriend} disabled={friends.length >= MAX_SAVED_FRIENDS}
+        ><Plus size={17} />{friends.length >= MAX_SAVED_FRIENDS
+          ? `已保存 ${MAX_SAVED_FRIENDS} 位朋友`
+          : '保存一位朋友'}</button
       >
       <div class="kind-note">
         <Heart size={17} strokeWidth={1.6} />
         <p>
-          <strong>多一点体谅，少一点路程</strong><span
-            >愿意多花一点时间在路上？把自己的优先级往左调，让推荐更靠近朋友。</span
+          <strong>朋友常在，这次自由组合</strong><span
+            >打开参加开关加入本次约饭；优先级向左调，愿意多花点时间照顾朋友。</span
           >
         </p>
       </div>
@@ -382,11 +510,12 @@
       aria-label="深圳地铁与商圈地图"
     >
       <CityMap
-        {friends}
+        friends={participatingFriends}
         {recommendations}
         selectedId={selected?.district.id ?? ''}
         onselect={openDistrict}
         {pickingFriendId}
+        pickingFriendName={friends.find((friend) => friend.id === pickingFriendId)?.name ?? ''}
         onpick={pick}
       />
       {#if pickingFriendId}<button class="cancel-picking" onclick={() => (pickingFriendId = null)}
@@ -400,6 +529,15 @@
               >{best.district.name}<span>人均 {best.averageMinutes} 分钟</span></strong
             ></span
           ><ArrowUpRight size={20} /></button
+        >{/if}
+      {#if !canPlan && !pickingFriendId}<button
+          class="map-recommendation"
+          onclick={showFriendPicker}
+          ><span class="map-rec-icon"><UsersRound size={20} /></span><span
+            ><small>先选好这次的饭搭子</small><strong
+              >选择至少两位朋友<span>已参加 {participatingFriends.length} 位</span></strong
+            ></span
+          ><ArrowRight size={18} /></button
         >{/if}
     </section>
 
@@ -430,7 +568,11 @@
         </div>
       {/if}
       {#if detailOpen && selected}
-        <RouteDetail recommendation={selected} {friends} onback={() => (detailOpen = false)} />
+        <RouteDetail
+          recommendation={selected}
+          friends={participatingFriends}
+          onback={() => (detailOpen = false)}
+        />
       {:else}
         <div class="results-heading">
           <div>
@@ -467,7 +609,7 @@
               >
                 {#if i === 0}<div class="best-label">
                     <span><Check size={12} strokeWidth={3} />本次首选</span><span
-                      >为 {friends.length} 位朋友找到的交集</span
+                      >为 {participatingFriends.length} 位朋友找到的交集</span
                     >
                   </div>{/if}
                 <div class="rec-main">
@@ -512,8 +654,15 @@
           >
         {:else}<div class="empty-results">
             <Compass size={32} />
-            <h3>调整一下出发方式吧</h3>
-            <p>有朋友离地铁路网太远。可选择附近地铁站，或把这位朋友改为开车 / 打车。</p>
+            <h3>{canPlan ? '调整一下出发方式吧' : '这次，叫上谁一起？'}</h3>
+            <p>
+              {canPlan
+                ? '有参加的朋友离地铁路网太远。可选择附近地铁站，或把这位朋友改为开车 / 打车。'
+                : `打开至少两位朋友的参加开关即可开始推荐。已保存的 ${friends.length} 位朋友资料都会保留。`}
+            </p>
+            {#if !canPlan}<button class="primary-button" onclick={showFriendPicker}
+                ><UsersRound size={15} />选择参加的朋友</button
+              >{/if}
           </div>{/if}
         <div class="results-footnote">
           <Info size={13} /><span
@@ -554,6 +703,9 @@
     >
     <h2>让约饭，对每个人都友好。</h2>
     <p class="dialog-intro">我们比较深圳 {districts.length} 个商圈，帮你找到值得一起出发的地方。</p>
+    <p class="dialog-intro">
+      最多保存 {MAX_SAVED_FRIENDS} 位朋友，每次打开至少两人的“参加”开关。关闭后保留资料，只计算本次参加的人。
+    </p>
     <div class="explain-row">
       <span>01</span>
       <div>
@@ -603,8 +755,9 @@
         >
       </p>
       <p>
-        计划仅保存在本设备浏览器。详细地址搜索会向高德发送查询词；选择开车 /
-        打车时会发送出发坐标和候选商圈坐标以查询路线，结果短暂缓存。地图底图由 OpenStreetMap 提供。
+        朋友资料与参加开关仅保存在本设备浏览器。详细地址搜索会向高德发送查询词；本次参加的朋友选择开车
+        / 打车时会发送出发坐标和候选商圈坐标以查询路线，结果短暂缓存。地图底图由 OpenStreetMap
+        提供。
       </p>
     </div>
     <button class="primary-button" onclick={() => helpDialog.close()}
@@ -616,7 +769,7 @@
   <div class="dialog-content">
     <span class="dialog-symbol"><RotateCcw size={24} /></span>
     <h2>重新来一份约饭计划？</h2>
-    <p>当前朋友、地址、出行方式和权重将恢复为三人示例。</p>
+    <p>当前保存的全部朋友、地址、出行方式、参加状态和权重将被三人示例替换。</p>
     <div class="dialog-actions">
       <button class="secondary-button" onclick={() => resetDialog.close()}>保留当前计划</button
       ><button class="primary-button" onclick={reset}>恢复示例</button>

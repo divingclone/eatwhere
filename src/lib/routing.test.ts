@@ -125,10 +125,103 @@ describe('walking + metro route planning', () => {
     expect(route.reachable).toBe(false);
     expect(route.minutes).toBe(Infinity);
     expect(route.steps).toHaveLength(0);
-    expect(rankDistricts([remote], 'balanced').every((item) => item.score === Infinity)).toBe(true);
+    expect(
+      rankDistricts([remote, defaultFriends[1]!], 'balanced').every(
+        (item) => item.score === Infinity,
+      ),
+    ).toBe(true);
     expect(
       planRoute({ ...remote, location: { lng: NaN, lat: 22.5 } }, districts[0]!).reachable,
     ).toBe(false);
+  });
+});
+
+describe('participation in meeting recommendations', () => {
+  test('disabled high-weight or unreachable friends do not affect scores, times, or routes', () => {
+    const attending = defaultFriends.slice(0, 2);
+    const absent = [
+      { ...defaultFriends[2]!, enabled: false, weight: 2 },
+      {
+        ...defaultFriends[0]!,
+        id: 'absent-unreachable',
+        enabled: false,
+        location: { lng: 113.5, lat: 22.4 },
+        weight: 2,
+      },
+    ];
+    for (const strategy of ['balanced', 'total', 'fair'] as const) {
+      const baseline = rankDistricts(attending, strategy);
+      expect(baseline).toHaveLength(districts.length);
+      expect(
+        rankDistricts([absent[0]!, attending[0]!, absent[1]!, attending[1]!], strategy),
+      ).toEqual(baseline);
+      expect(
+        rankDistricts([...attending, { ...absent[1]!, enabled: true }], strategy).every(
+          (recommendation) => recommendation.score === Infinity,
+        ),
+      ).toBe(true);
+    }
+  });
+
+  test('reselecting friends restores rankings, and older friends without enabled still participate', () => {
+    const original = defaultFriends.map((friend, index) => ({
+      ...friend,
+      weight: index === 2 ? 2 : 1,
+    }));
+    const absent = original.map((friend, index) => ({ ...friend, enabled: index !== 2 }));
+    const reselected = absent.map((friend) => ({ ...friend, enabled: true }));
+    const legacy = original.map(({ enabled: _enabled, ...friend }) => friend);
+    for (const strategy of ['balanced', 'total', 'fair'] as const) {
+      const baseline = rankDistricts(original, strategy);
+      expect(rankDistricts(absent, strategy)).toEqual(
+        rankDistricts(original.slice(0, 2), strategy),
+      );
+      expect(rankDistricts(reselected, strategy)).toEqual(baseline);
+      expect(rankDistricts(legacy, strategy)).toEqual(baseline);
+    }
+    expect(planRoute(absent[2]!, districts[0]!)).toBe(planRoute(original[2]!, districts[0]!));
+  });
+
+  test('zero or one participant produces no group recommendation', () => {
+    const allAbsent = defaultFriends.map((friend) => ({ ...friend, enabled: false }));
+    const oneAttending = allAbsent.map((friend, index) => ({ ...friend, enabled: index === 0 }));
+    for (const strategy of ['balanced', 'total', 'fair'] as const) {
+      for (const friends of [[], [defaultFriends[0]!], allAbsent, oneAttending]) {
+        expect(rankDistricts(friends, strategy)).toEqual([]);
+      }
+    }
+  });
+
+  test('absent drivers never contribute API routes and reselecting them uses the same road data', () => {
+    const attending = defaultFriends.slice(0, 2);
+    const driver: Friend = {
+      ...defaultFriends[2]!,
+      enabled: false,
+      travelMode: 'driving',
+      weight: 2,
+    };
+    const roadOverrides: DrivingRouteOverrides = {
+      [drivingOriginKey(driver.location)]: districts.map((district) => ({
+        districtId: district.id,
+        minutes: 90,
+        distanceKm: 40,
+        coordinates: [driver.location, district.location],
+      })),
+    };
+    for (const strategy of ['balanced', 'total', 'fair'] as const) {
+      expect(rankDistricts([...attending, driver], strategy, roadOverrides)).toEqual(
+        rankDistricts(attending, strategy),
+      );
+      const reselected = rankDistricts(
+        [...attending, { ...driver, enabled: true }],
+        strategy,
+        roadOverrides,
+      );
+      expect(reselected.every((item) => item.routes[2]!.source === 'amap')).toBe(true);
+      expect(reselected.every((item) => item.routes[2]!.minutes === 95)).toBe(true);
+      expect(reselected.every((item) => item.routes[2]!.friendId === driver.id)).toBe(true);
+    }
+    expect(planRoute(driver, districts[0]!, roadOverrides).source).toBe('amap');
   });
 });
 

@@ -2,7 +2,14 @@ import type { Friend } from './types';
 
 export type PlanStrategy = 'balanced' | 'total' | 'fair';
 
-/** Keep existing v1 plans and migrate their missing travel mode to transit. */
+export const MAX_SAVED_FRIENDS = 50;
+
+/** Missing participation state on older plans means the friend still participates. */
+export function getParticipatingFriends(friends: Friend[]): Friend[] {
+  return friends.filter((friend) => friend.enabled !== false);
+}
+
+/** Keep existing v1 plans and supply defaults for missing travel mode and participation. */
 export function parseSavedPlan(
   raw: string | null,
 ): { friends: Friend[]; strategy: PlanStrategy } | undefined {
@@ -10,8 +17,7 @@ export function parseSavedPlan(
     const saved = JSON.parse(raw ?? 'null');
     if (
       !Array.isArray(saved?.friends) ||
-      saved.friends.length < 2 ||
-      saved.friends.length > 8 ||
+      saved.friends.length > MAX_SAVED_FRIENDS ||
       !saved.friends.every(
         (f: Friend) =>
           typeof f?.id === 'string' &&
@@ -36,6 +42,7 @@ export function parseSavedPlan(
     return {
       friends: saved.friends.map((f: Friend) => ({
         ...f,
+        enabled: f.enabled !== false,
         travelMode: f.travelMode === 'driving' ? 'driving' : 'transit',
       })),
       strategy: ['balanced', 'total', 'fair'].includes(saved.strategy)

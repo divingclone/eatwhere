@@ -2382,6 +2382,350 @@ dialog::backdrop {
     font-size: 10px;
   }
 }
+/* Keep saved friends compact across the larger-screen and mobile overrides above. */
+.friends-panel.compact-friends {
+  padding: 20px 16px 14px;
+}
+.compact-friends .panel-subtitle {
+  margin: 6px 0 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #75816f;
+}
+.compact-friends .friends-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+.compact-friends .friend-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid #e1e7dd;
+  border-radius: 6px;
+  background: #f8faf6;
+  color: #82907b;
+}
+.compact-friends .friend-search:focus-within {
+  border-color: #82ab94;
+  box-shadow: 0 0 0 2px #82ab9426;
+  background: #fff;
+}
+.compact-friends .friend-search > svg {
+  flex-shrink: 0;
+}
+.compact-friends .friend-search input {
+  width: 100%;
+  min-width: 0;
+  padding: 5px 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #455d42;
+  font-size: 12px;
+}
+.compact-friends .friend-search input::placeholder {
+  color: #82907b;
+}
+.compact-friends .clear-attendance {
+  min-height: 32px;
+  padding: 4px;
+  border-radius: 5px;
+  color: #718367;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.compact-friends .clear-attendance:hover:not(:disabled) {
+  background: #f0f5eb;
+  color: #355a44;
+}
+.compact-friends .friends-list {
+  margin: 0 -16px;
+  padding: 0 16px 2px;
+}
+.compact-friends .friend-card {
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 9px;
+}
+.compact-friends .friend-card:last-child {
+  margin-bottom: 1px;
+}
+.compact-friends .friend-top {
+  gap: 5px;
+  min-height: 32px;
+  margin-bottom: 4px;
+}
+.compact-friends .friend-avatar {
+  width: 24px;
+  height: 24px;
+  font-size: 11px;
+}
+.compact-friends .friend-name {
+  flex: 1;
+  width: 0;
+  padding: 3px 1px;
+  font-size: 13px;
+  line-height: 20px;
+}
+.compact-friends .friend-remove {
+  width: 26px;
+  min-width: 26px;
+  height: 32px;
+  margin-right: -4px;
+  color: #899483;
+}
+.compact-friends .friend-attendance {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex: 0 0 68px;
+  min-height: 32px;
+  padding: 2px;
+  border-radius: 5px;
+  color: #73816d;
+  font-size: 11px;
+  line-height: 1;
+  white-space: nowrap;
+}
+.compact-friends .friend-attendance:hover {
+  background: #eff4eb;
+}
+.compact-friends .friend-attendance[aria-checked='true'] {
+  color: #355f43;
+}
+.compact-friends .attendance-track {
+  position: relative;
+  flex-shrink: 0;
+  width: 26px;
+  height: 16px;
+  border-radius: 20px;
+  background: #bdc8b8;
+  transition: background 0.18s ease;
+}
+.compact-friends .attendance-track::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px #20392224;
+  transition: transform 0.18s ease;
+}
+.compact-friends .friend-attendance[aria-checked='true'] .attendance-track {
+  background: #47734f;
+}
+.compact-friends .friend-attendance[aria-checked='true'] .attendance-track::after {
+  transform: translateX(10px);
+}
+.compact-friends .address-field {
+  height: 32px;
+  gap: 6px;
+  padding: 0 8px;
+}
+.compact-friends .address-field > input {
+  padding: 5px 0;
+  font-size: 12px;
+}
+.compact-friends .travel-mode-options {
+  gap: 2px;
+  margin-top: 6px;
+  padding: 2px;
+  border-radius: 6px;
+}
+.compact-friends .travel-mode-options button {
+  min-height: 28px;
+  gap: 4px;
+  padding: 3px 2px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+.compact-friends .friend-weight-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 24px;
+  margin-top: 4px;
+}
+.compact-friends .weight-caption {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 1px;
+  color: #73816b;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.compact-friends .weight-caption .inline-help {
+  justify-content: center;
+  width: 22px;
+  height: 24px;
+  border-radius: 4px;
+  color: #829178;
+}
+.compact-friends .weight-caption .inline-help:hover {
+  background: #eff4e9;
+  color: #4b7043;
+}
+.compact-friends .weight-slider {
+  flex: 1;
+  min-width: 0;
+  width: 0;
+  height: 24px;
+  margin: 0;
+  background-size: 100% 4px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.compact-friends .weight-value {
+  min-width: 29px;
+  color: var(--friend-color);
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 24px;
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.compact-friends .weight-value > span {
+  margin-left: 2px;
+  font-size: 10px;
+  font-weight: 400;
+}
+.compact-friends .friend-card.inactive {
+  padding: 8px 10px;
+  background: #f8faf6;
+}
+.compact-friends .friend-card.inactive .friend-top {
+  margin-bottom: 0;
+}
+.compact-friends .friend-card.inactive .friend-name {
+  color: #61735c;
+}
+.compact-friends .inactive-friend-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 6px;
+}
+.compact-friends .friend-address-summary {
+  grid-column: 1;
+  grid-row: 1;
+  overflow: hidden;
+  color: #65735e;
+  font-size: 11px;
+  line-height: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.compact-friends .inactive-friend-meta {
+  display: contents;
+}
+.compact-friends .inactive-friend-meta > span {
+  grid-column: 1;
+  grid-row: 2;
+  overflow: hidden;
+  color: #7a8871;
+  font-size: 10px;
+  line-height: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.compact-friends .edit-friend,
+.compact-friends .finish-editing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 4px 6px;
+  border-radius: 5px;
+  color: #5f7c50;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.compact-friends .edit-friend {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  margin-right: -4px;
+}
+.compact-friends .edit-friend:hover,
+.compact-friends .finish-editing:hover {
+  background: #eaf1e3;
+  color: #355d3d;
+}
+.compact-friends .friend-card.is-editing {
+  background: #fff;
+}
+.compact-friends .friend-card.is-editing .friend-top {
+  margin-bottom: 4px;
+}
+.compact-friends .finish-editing {
+  display: flex;
+  width: max-content;
+  margin: 4px 0 0 auto;
+  background: #f0f5eb;
+}
+.compact-friends .empty-friends {
+  padding: 24px 8px;
+  color: #77866b;
+  font-size: 12px;
+  line-height: 1.8;
+  text-align: center;
+}
+.compact-friends .add-friend {
+  min-height: 34px;
+  margin-top: 10px;
+  padding: 7px;
+  font-size: 12px;
+}
+.compact-friends .local-save {
+  margin-top: 10px;
+}
+@media (max-width: 760px) {
+  .friends-panel.compact-friends {
+    padding: 18px 16px 14px;
+  }
+  .compact-friends .friend-card {
+    padding: 8px 10px;
+  }
+  .compact-friends .friend-remove {
+    width: 32px;
+    min-width: 32px;
+  }
+  .compact-friends .friend-name {
+    min-height: 32px;
+    font-size: 14px;
+  }
+  .compact-friends .address-field {
+    height: 34px;
+  }
+  .compact-friends .friend-weight-row {
+    min-height: 32px;
+    margin-top: 2px;
+  }
+  .compact-friends .weight-caption .inline-help {
+    width: 26px;
+    height: 32px;
+  }
+  .compact-friends .weight-slider {
+    height: 32px;
+  }
+  .compact-friends .edit-friend,
+  .compact-friends .finish-editing {
+    min-width: 32px;
+    min-height: 32px;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   *,
   *:before,
