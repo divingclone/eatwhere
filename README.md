@@ -49,17 +49,19 @@ bun run preview  # 预览静态构建
 
 将仓库推送到自己的 GitHub，再在 Vercel 选择 **Add New → Project → Import Git Repository**。确认以下设置：
 
-| 设置             | 值                              |
-| ---------------- | ------------------------------- |
-| Framework Preset | Vite                            |
-| Root Directory   | 仓库根目录                      |
-| Install Command  | `bun install --frozen-lockfile` |
-| Build Command    | `bun run build`                 |
-| Output Directory | `dist`                          |
+| 设置             | 值                                         |
+| ---------------- | ------------------------------------------ |
+| Framework Preset | Vite                                       |
+| Root Directory   | 仓库根目录                                 |
+| Install Command  | `bunx bun@1.4.2 install --frozen-lockfile` |
+| Build Command    | `bunx bun@1.4.2 run build`                 |
+| Output Directory | `dist`                                     |
 
 这些构建设置已经写在 `vercel.json`；提交 `bun.lock` 保证依赖安装可复现。需要详细地址搜索时，在 Vercel 项目环境变量中添加 `AMAP_WEB_SERVICE_KEY`，勾选所需的 Production / Preview 环境，再部署。`api/geocode.ts` 会作为 Vercel Node.js Function 提供 `/api/geocode`，Bun 用于依赖管理、开发、测试与构建。环境变量变更后需要重新部署。[Vercel 的 Vite 文档](https://vercel.com/docs/frameworks/frontend/vite)与 [Node.js Function 文档](https://vercel.com/docs/functions/runtimes/node-js)说明了对应的托管方式。
 
 生产分支为 `main`。在 Vercel 关联 GitHub 仓库后，后续推送会触发自动构建与部署。
+
+云端使用 `bunx bun@1.4.2` 固定 Bun 版本，避免 Vercel 默认旧版本无法读取锁文件。此配置依据 [Vercel 的 Bun 版本固定说明](https://vercel.com/kb/guide/how-to-pin-a-specific-bun-version-for-vercel-builds)。
 
 ## 项目结构
 
