@@ -94,6 +94,7 @@
     let tileErrors = 0;
     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
+      opacity: 0.55,
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a>',
       className: 'shenzhen-basemap',
@@ -445,7 +446,7 @@
     min-height: 480px;
     overflow: hidden;
     border-radius: inherit;
-    background: #e8ede7;
+    background: #f2f4ef;
     isolation: isolate;
   }
   .map-canvas {
@@ -453,7 +454,7 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    background: #e8ede7;
+    background: #f2f4ef;
     z-index: 0;
     font-family: inherit;
   }
@@ -729,8 +730,9 @@
     outline: 3px solid #729b7f;
     outline-offset: 3px;
   }
-  :global(.shenzhen-basemap) {
-    filter: saturate(0.58);
+  /* Soften only the base tiles; routes, markers and controls stay crisp. */
+  :global(.map-shell .shenzhen-basemap) {
+    filter: saturate(0.18) contrast(0.68) brightness(1.12);
   }
   :global(.map-shell .leaflet-control-attribution) {
     color: #8c968c;
