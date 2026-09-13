@@ -1,0 +1,7 @@
+node_modules
+dist
+bun.lock
+src/lib/data/metro.json
+.local
+.vercel
+.env*

@@ -1,0 +1,33 @@
+{
+  "name": "eatwhere-shenzhen",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "packageManager": "bun@1.4.2",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json",
+    "test": "bun test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "update:metro": "bun scripts/update-metro.ts"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4",
+    "lucide-svelte": "^0.468.0",
+    "svelte": "^5.39.0"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^6.2.0",
+    "@types/bun": "^1.3.0",
+    "@types/leaflet": "^1.9.20",
+    "@types/node": "^24.0.0",
+    "prettier": "^3.6.2",
+    "prettier-plugin-svelte": "^3.4.0",
+    "svelte-check": "^4.3.0",
+    "typescript": "~5.9.2",
+    "vite": "^7.1.7"
+  }
+}

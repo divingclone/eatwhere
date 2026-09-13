@@ -1,0 +1,4497 @@
+{
+  "source": "https://map.amap.com/service/subway?_1469083453978&srhdata=4403_drw_shenzhen.json",
+  "fetchedAt": "2026-09-13T08:18:23.472Z",
+  "sourceCoordinateSystem": "GCJ-02",
+  "coordinateSystem": "WGS84",
+  "notes": "高德公开地铁图数据快照；不含坪山云巴。线路及车站以抓取结果为准，不代表实时运营状态。站间连线为示意，非轨道精确线形。",
+  "stations": [
+    {
+      "id": "station-罗湖",
+      "name": "罗湖",
+      "location": {
+        "lng": 114.113559,
+        "lat": 22.53477
+      },
+      "lineIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "station-国贸",
+      "name": "国贸",
+      "location": {
+        "lng": 114.113802,
+        "lat": 22.542366
+      },
+      "lineIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "station-老街",
+      "name": "老街",
+      "location": {
+        "lng": 114.111829,
+        "lat": 22.546917
+      },
+      "lineIds": [
+        "1",
+        "3"
+      ]
+    },
+    {
+      "id": "station-大剧院",
+      "name": "大剧院",
+      "location": {
+        "lng": 114.102691,
+        "lat": 22.544482
+      },
+      "lineIds": [
+        "1",
+        "2",
+        "5"
+      ]
+    },
+    {
+      "id": "station-科学馆",
+      "name": "科学馆",
+      "location": {
+        "lng": 114.090045,
+        "lat": 22.543301
+      },
+      "lineIds": [
+        "1",
+        "6"
+      ]
+    },
+    {
+      "id": "station-华强路",
+      "name": "华强路",
+      "location": {
+        "lng": 114.080004,
+        "lat": 22.543148
+      },
+      "lineIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "station-岗厦",
+      "name": "岗厦",
+      "location": {
+        "lng": 114.063071,
+        "lat": 22.537563
+      },
+      "lineIds": [
+        "1",
+        "10"
+      ]
+    },
+    {
+      "id": "station-会展中心",
+      "name": "会展中心",
+      "location": {
+        "lng": 114.05599,
+        "lat": 22.53749
+      },
+      "lineIds": [
+        "1",
+        "4"
+      ]
+    },
+    {
+      "id": "station-购物公园",
+      "name": "购物公园",
+      "location": {
+        "lng": 114.049479,
+        "lat": 22.537389
+      },
+      "lineIds": [
+        "1",
+        "3"
+      ]
+    },
+    {
+      "id": "station-香蜜湖",
+      "name": "香蜜湖",
+      "location": {
+        "lng": 114.033563,
+        "lat": 22.541658
+      },
+      "lineIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "station-车公庙",
+      "name": "车公庙",
+      "location": {
+        "lng": 114.020784,
+        "lat": 22.539053
+      },
+      "lineIds": [
+        "1",
+        "7",
+        "9",
+        "11"
+      ]
+    },
+    {
+      "id": "station-竹子林",
+      "name": "竹子林",
+      "location": {
+        "lng": 114.0089,
+        "lat": 22.536198
+      },
+      "lineIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "station-侨城东",
+      "name": "侨城东",
+      "location": {
+        "lng": 113.991678,
+        "lat": 22.535299
+      },
+      "lineIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "station-华侨城",
+      "name": "华侨城",
+      "location": {
+        "lng": 113.980423,
+        "lat": 22.536415
+      },
+      "lineIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "station-世界之窗",
+      "name": "世界之窗",
+      "location": {
+        "lng": 113.969295,
+        "lat": 22.539857
+      },
+      "lineIds": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "id": "station-白石洲",
+      "name": "白石洲",
+      "location": {
+        "lng": 113.962141,
+        "lat": 22.542579
+      },
+      "lineIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "station-高新园",
+      "name": "高新园",
+      "location": {
+        "lng": 113.948958,
+        "lat": 22.54324
+      },
+      "lineIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "station-深大",
+      "name": "深大",
+      "location": {
+        "lng": 113.939301,
+        "lat": 22.541689
+      },
+      "lineIds": [
+        "1",
+        "13"
+      ]
+    },
+    {
+      "id": "station-桃园",
+      "name": "桃园",
+      "location": {
+        "lng": 113.919921,
+        "lat": 22.534553
+      },
+      "lineIds": [
+        "1",
+        "12"
+      ]
+    },
+    {
+      "id": "station-大新",
+      "name": "大新",
+      "location": {
+        "lng": 113.910212,
+        "lat": 22.535284
+      },
+      "lineIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "station-鲤鱼门",
+      "name": "鲤鱼门",
+      "location": {
+        "lng": 113.898211,
+        "lat": 22.535059
+      },
+      "lineIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "station-前海湾",
+      "name": "前海湾",
+      "location": {
+        "lng": 113.893059,
+        "lat": 22.540173
+      },
+      "lineIds": [
+        "1",
+        "5",
+        "11"
+      ]
+    },
+    {
+      "id": "station-新安",
+      "name": "新安",
+      "location": {
+        "lng": 113.889747,
+        "lat": 22.550518
+      },
+      "lineIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "station-宝安中心",
+      "name": "宝安中心",
+      "location": {
+        "lng": 113.882345,
+        "lat": 22.557619
+      },
+      "lineIds": [
+        "1",
+        "5"
+      ]
+    },
+    {
+      "id": "station-宝体",
+      "name": "宝体",
+      "location": {
+        "lng": 113.875741,
+        "lat": 22.563779
+      },
+      "lineIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "station-坪洲",
+      "name": "坪洲",
+      "location": {
+        "lng": 113.865791,
+        "lat": 22.571933
+      },
+      "lineIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "station-西乡",
+      "name": "西乡",
+      "location": {
+        "lng": 113.85811,
+        "lat": 22.578162
+      },
+      "lineIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "station-固戍",
+      "name": "固戍",
+      "location": {
+        "lng": 113.841812,
+        "lat": 22.604345
+      },
+      "lineIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "station-后瑞",
+      "name": "后瑞",
+      "location": {
+        "lng": 113.830437,
+        "lat": 22.631791
+      },
+      "lineIds": [
+        "1"
+      ]
+    },
+    {
+      "id": "station-机场东",
+      "name": "机场东",
+      "location": {
+        "lng": 113.817586,
+        "lat": 22.649929
+      },
+      "lineIds": [
+        "1",
+        "12"
+      ]
+    },
+    {
+      "id": "station-赤湾",
+      "name": "赤湾",
+      "location": {
+        "lng": 113.892655,
+        "lat": 22.48228
+      },
+      "lineIds": [
+        "2",
+        "5"
+      ]
+    },
+    {
+      "id": "station-蛇口港",
+      "name": "蛇口港",
+      "location": {
+        "lng": 113.907473,
+        "lat": 22.47968
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-海上世界",
+      "name": "海上世界",
+      "location": {
+        "lng": 113.910253,
+        "lat": 22.488155
+      },
+      "lineIds": [
+        "2",
+        "12"
+      ]
+    },
+    {
+      "id": "station-水湾",
+      "name": "水湾",
+      "location": {
+        "lng": 113.914829,
+        "lat": 22.49144
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-东角头",
+      "name": "东角头",
+      "location": {
+        "lng": 113.92629,
+        "lat": 22.489367
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-湾厦",
+      "name": "湾厦",
+      "location": {
+        "lng": 113.93374,
+        "lat": 22.496385
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-海月",
+      "name": "海月",
+      "location": {
+        "lng": 113.932851,
+        "lat": 22.503443
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-登良",
+      "name": "登良",
+      "location": {
+        "lng": 113.932738,
+        "lat": 22.51218
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-后海",
+      "name": "后海",
+      "location": {
+        "lng": 113.938633,
+        "lat": 22.521196
+      },
+      "lineIds": [
+        "2",
+        "11",
+        "13"
+      ]
+    },
+    {
+      "id": "station-科苑",
+      "name": "科苑",
+      "location": {
+        "lng": 113.941321,
+        "lat": 22.530038
+      },
+      "lineIds": [
+        "2",
+        "13"
+      ]
+    },
+    {
+      "id": "station-红树湾",
+      "name": "红树湾",
+      "location": {
+        "lng": 113.963524,
+        "lat": 22.528114
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-侨城北",
+      "name": "侨城北",
+      "location": {
+        "lng": 113.984192,
+        "lat": 22.546906
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-深康",
+      "name": "深康",
+      "location": {
+        "lng": 113.993866,
+        "lat": 22.549341
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-安托山",
+      "name": "安托山",
+      "location": {
+        "lng": 114.001238,
+        "lat": 22.551648
+      },
+      "lineIds": [
+        "2",
+        "7"
+      ]
+    },
+    {
+      "id": "station-侨香",
+      "name": "侨香",
+      "location": {
+        "lng": 114.009359,
+        "lat": 22.552622
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-香蜜",
+      "name": "香蜜",
+      "location": {
+        "lng": 114.018809,
+        "lat": 22.555582
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-香梅北",
+      "name": "香梅北",
+      "location": {
+        "lng": 114.027653,
+        "lat": 22.556645
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-景田",
+      "name": "景田",
+      "location": {
+        "lng": 114.038259,
+        "lat": 22.556177
+      },
+      "lineIds": [
+        "2",
+        "9"
+      ]
+    },
+    {
+      "id": "station-莲花西",
+      "name": "莲花西",
+      "location": {
+        "lng": 114.044938,
+        "lat": 22.549411
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-福田",
+      "name": "福田",
+      "location": {
+        "lng": 114.047779,
+        "lat": 22.542824
+      },
+      "lineIds": [
+        "2",
+        "3",
+        "11"
+      ]
+    },
+    {
+      "id": "station-市民中心",
+      "name": "市民中心",
+      "location": {
+        "lng": 114.055858,
+        "lat": 22.544555
+      },
+      "lineIds": [
+        "2",
+        "4"
+      ]
+    },
+    {
+      "id": "station-岗厦北",
+      "name": "岗厦北",
+      "location": {
+        "lng": 114.062845,
+        "lat": 22.541029
+      },
+      "lineIds": [
+        "2",
+        "10",
+        "11",
+        "14"
+      ]
+    },
+    {
+      "id": "station-华强北",
+      "name": "华强北",
+      "location": {
+        "lng": 114.080284,
+        "lat": 22.547129
+      },
+      "lineIds": [
+        "2",
+        "7"
+      ]
+    },
+    {
+      "id": "station-燕南",
+      "name": "燕南",
+      "location": {
+        "lng": 114.087432,
+        "lat": 22.547224
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-湖贝",
+      "name": "湖贝",
+      "location": {
+        "lng": 114.120342,
+        "lat": 22.546977
+      },
+      "lineIds": [
+        "2",
+        "5"
+      ]
+    },
+    {
+      "id": "station-黄贝岭",
+      "name": "黄贝岭",
+      "location": {
+        "lng": 114.131255,
+        "lat": 22.548798
+      },
+      "lineIds": [
+        "2",
+        "5"
+      ]
+    },
+    {
+      "id": "station-新秀",
+      "name": "新秀",
+      "location": {
+        "lng": 114.143716,
+        "lat": 22.550409
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-莲塘口岸",
+      "name": "莲塘口岸",
+      "location": {
+        "lng": 114.150553,
+        "lat": 22.556256
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-仙湖路",
+      "name": "仙湖路",
+      "location": {
+        "lng": 114.1614,
+        "lat": 22.566815
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-莲塘",
+      "name": "莲塘",
+      "location": {
+        "lng": 114.169308,
+        "lat": 22.566883
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-梧桐山南",
+      "name": "梧桐山南",
+      "location": {
+        "lng": 114.178249,
+        "lat": 22.560632
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-沙头角",
+      "name": "沙头角",
+      "location": {
+        "lng": 114.218332,
+        "lat": 22.557078
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-海山",
+      "name": "海山",
+      "location": {
+        "lng": 114.232871,
+        "lat": 22.558396
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-盐田港西",
+      "name": "盐田港西",
+      "location": {
+        "lng": 114.242069,
+        "lat": 22.565399
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-深外高中",
+      "name": "深外高中",
+      "location": {
+        "lng": 114.239725,
+        "lat": 22.58689
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-盐田路",
+      "name": "盐田路",
+      "location": {
+        "lng": 114.251496,
+        "lat": 22.592581
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-鸿安围",
+      "name": "鸿安围",
+      "location": {
+        "lng": 114.259403,
+        "lat": 22.593403
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-盐田墟",
+      "name": "盐田墟",
+      "location": {
+        "lng": 114.271551,
+        "lat": 22.590173
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-大梅沙",
+      "name": "大梅沙",
+      "location": {
+        "lng": 114.302977,
+        "lat": 22.596906
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-小梅沙",
+      "name": "小梅沙",
+      "location": {
+        "lng": 114.321627,
+        "lat": 22.605002
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-溪涌",
+      "name": "溪涌",
+      "location": {
+        "lng": 114.355332,
+        "lat": 22.614823
+      },
+      "lineIds": [
+        "2"
+      ]
+    },
+    {
+      "id": "station-福保",
+      "name": "福保",
+      "location": {
+        "lng": 114.050484,
+        "lat": 22.510617
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-益田",
+      "name": "益田",
+      "location": {
+        "lng": 114.045892,
+        "lat": 22.519029
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-石厦",
+      "name": "石厦",
+      "location": {
+        "lng": 114.048516,
+        "lat": 22.526444
+      },
+      "lineIds": [
+        "3",
+        "7"
+      ]
+    },
+    {
+      "id": "station-少年宫",
+      "name": "少年宫",
+      "location": {
+        "lng": 114.055059,
+        "lat": 22.551349
+      },
+      "lineIds": [
+        "3",
+        "4"
+      ]
+    },
+    {
+      "id": "station-莲花村",
+      "name": "莲花村",
+      "location": {
+        "lng": 114.062709,
+        "lat": 22.551355
+      },
+      "lineIds": [
+        "3",
+        "10"
+      ]
+    },
+    {
+      "id": "station-华新",
+      "name": "华新",
+      "location": {
+        "lng": 114.081524,
+        "lat": 22.551668
+      },
+      "lineIds": [
+        "3",
+        "7"
+      ]
+    },
+    {
+      "id": "station-通新岭",
+      "name": "通新岭",
+      "location": {
+        "lng": 114.091145,
+        "lat": 22.551808
+      },
+      "lineIds": [
+        "3",
+        "6"
+      ]
+    },
+    {
+      "id": "station-红岭",
+      "name": "红岭",
+      "location": {
+        "lng": 114.099461,
+        "lat": 22.551061
+      },
+      "lineIds": [
+        "3",
+        "9"
+      ]
+    },
+    {
+      "id": "station-晒布",
+      "name": "晒布",
+      "location": {
+        "lng": 114.117562,
+        "lat": 22.551927
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-翠竹",
+      "name": "翠竹",
+      "location": {
+        "lng": 114.124793,
+        "lat": 22.558883
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-田贝",
+      "name": "田贝",
+      "location": {
+        "lng": 114.124962,
+        "lat": 22.569974
+      },
+      "lineIds": [
+        "3",
+        "7"
+      ]
+    },
+    {
+      "id": "station-水贝",
+      "name": "水贝",
+      "location": {
+        "lng": 114.119874,
+        "lat": 22.576676
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-草埔",
+      "name": "草埔",
+      "location": {
+        "lng": 114.111387,
+        "lat": 22.587128
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-布吉",
+      "name": "布吉",
+      "location": {
+        "lng": 114.116051,
+        "lat": 22.605011
+      },
+      "lineIds": [
+        "3",
+        "5",
+        "14"
+      ]
+    },
+    {
+      "id": "station-木棉湾",
+      "name": "木棉湾",
+      "location": {
+        "lng": 114.125201,
+        "lat": 22.609686
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-大芬",
+      "name": "大芬",
+      "location": {
+        "lng": 114.133287,
+        "lat": 22.616888
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-丹竹头",
+      "name": "丹竹头",
+      "location": {
+        "lng": 114.142999,
+        "lat": 22.622463
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-六约",
+      "name": "六约",
+      "location": {
+        "lng": 114.175676,
+        "lat": 22.637089
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-塘坑",
+      "name": "塘坑",
+      "location": {
+        "lng": 114.187787,
+        "lat": 22.641967
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-横岗",
+      "name": "横岗",
+      "location": {
+        "lng": 114.204095,
+        "lat": 22.651256
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-永湖",
+      "name": "永湖",
+      "location": {
+        "lng": 114.213162,
+        "lat": 22.661819
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-荷坳",
+      "name": "荷坳",
+      "location": {
+        "lng": 114.219441,
+        "lat": 22.675907
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-大运",
+      "name": "大运",
+      "location": {
+        "lng": 114.2233,
+        "lat": 22.688549
+      },
+      "lineIds": [
+        "3",
+        "14",
+        "16"
+      ]
+    },
+    {
+      "id": "station-爱联",
+      "name": "爱联",
+      "location": {
+        "lng": 114.229569,
+        "lat": 22.700327
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-吉祥",
+      "name": "吉祥",
+      "location": {
+        "lng": 114.239476,
+        "lat": 22.712322
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-龙城广场",
+      "name": "龙城广场",
+      "location": {
+        "lng": 114.249758,
+        "lat": 22.719749
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-南联",
+      "name": "南联",
+      "location": {
+        "lng": 114.260701,
+        "lat": 22.724797
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-双龙",
+      "name": "双龙",
+      "location": {
+        "lng": 114.272591,
+        "lat": 22.731627
+      },
+      "lineIds": [
+        "3",
+        "16"
+      ]
+    },
+    {
+      "id": "station-梨园",
+      "name": "梨园",
+      "location": {
+        "lng": 114.276903,
+        "lat": 22.737648
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-新生",
+      "name": "新生",
+      "location": {
+        "lng": 114.278189,
+        "lat": 22.750798
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-坪西",
+      "name": "坪西",
+      "location": {
+        "lng": 114.277404,
+        "lat": 22.766232
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-低碳城",
+      "name": "低碳城",
+      "location": {
+        "lng": 114.284515,
+        "lat": 22.773806
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-白石塘",
+      "name": "白石塘",
+      "location": {
+        "lng": 114.298015,
+        "lat": 22.777899
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-富坪",
+      "name": "富坪",
+      "location": {
+        "lng": 114.306045,
+        "lat": 22.782915
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-坪地六联",
+      "name": "坪地六联",
+      "location": {
+        "lng": 114.31718,
+        "lat": 22.789721
+      },
+      "lineIds": [
+        "3"
+      ]
+    },
+    {
+      "id": "station-福田口岸",
+      "name": "福田口岸",
+      "location": {
+        "lng": 114.062614,
+        "lat": 22.517887
+      },
+      "lineIds": [
+        "4",
+        "10"
+      ]
+    },
+    {
+      "id": "station-福民",
+      "name": "福民",
+      "location": {
+        "lng": 114.060799,
+        "lat": 22.525939
+      },
+      "lineIds": [
+        "4",
+        "7",
+        "10"
+      ]
+    },
+    {
+      "id": "station-莲花北",
+      "name": "莲花北",
+      "location": {
+        "lng": 114.054291,
+        "lat": 22.56326
+      },
+      "lineIds": [
+        "4"
+      ]
+    },
+    {
+      "id": "station-上梅林",
+      "name": "上梅林",
+      "location": {
+        "lng": 114.054304,
+        "lat": 22.57318
+      },
+      "lineIds": [
+        "4",
+        "9"
+      ]
+    },
+    {
+      "id": "station-民乐",
+      "name": "民乐",
+      "location": {
+        "lng": 114.043712,
+        "lat": 22.596884
+      },
+      "lineIds": [
+        "4"
+      ]
+    },
+    {
+      "id": "station-白石龙",
+      "name": "白石龙",
+      "location": {
+        "lng": 114.037345,
+        "lat": 22.604259
+      },
+      "lineIds": [
+        "4"
+      ]
+    },
+    {
+      "id": "station-深圳北站",
+      "name": "深圳北站",
+      "location": {
+        "lng": 114.025803,
+        "lat": 22.613598
+      },
+      "lineIds": [
+        "4",
+        "5",
+        "6"
+      ]
+    },
+    {
+      "id": "station-红山",
+      "name": "红山",
+      "location": {
+        "lng": 114.018354,
+        "lat": 22.62451
+      },
+      "lineIds": [
+        "4",
+        "6"
+      ]
+    },
+    {
+      "id": "station-上塘",
+      "name": "上塘",
+      "location": {
+        "lng": 114.007817,
+        "lat": 22.639887
+      },
+      "lineIds": [
+        "4"
+      ]
+    },
+    {
+      "id": "station-龙胜",
+      "name": "龙胜",
+      "location": {
+        "lng": 114.006991,
+        "lat": 22.647571
+      },
+      "lineIds": [
+        "4"
+      ]
+    },
+    {
+      "id": "station-龙华",
+      "name": "龙华",
+      "location": {
+        "lng": 114.017374,
+        "lat": 22.654429
+      },
+      "lineIds": [
+        "4"
+      ]
+    },
+    {
+      "id": "station-清湖",
+      "name": "清湖",
+      "location": {
+        "lng": 114.03146,
+        "lat": 22.666843
+      },
+      "lineIds": [
+        "4"
+      ]
+    },
+    {
+      "id": "station-清湖北",
+      "name": "清湖北",
+      "location": {
+        "lng": 114.035331,
+        "lat": 22.674833
+      },
+      "lineIds": [
+        "4"
+      ]
+    },
+    {
+      "id": "station-竹村",
+      "name": "竹村",
+      "location": {
+        "lng": 114.035222,
+        "lat": 22.689471
+      },
+      "lineIds": [
+        "4"
+      ]
+    },
+    {
+      "id": "station-茜坑",
+      "name": "茜坑",
+      "location": {
+        "lng": 114.035998,
+        "lat": 22.699994
+      },
+      "lineIds": [
+        "4"
+      ]
+    },
+    {
+      "id": "station-长湖",
+      "name": "长湖",
+      "location": {
+        "lng": 114.039699,
+        "lat": 22.71349
+      },
+      "lineIds": [
+        "4"
+      ]
+    },
+    {
+      "id": "station-观澜",
+      "name": "观澜",
+      "location": {
+        "lng": 114.049657,
+        "lat": 22.717874
+      },
+      "lineIds": [
+        "4"
+      ]
+    },
+    {
+      "id": "station-松元厦",
+      "name": "松元厦",
+      "location": {
+        "lng": 114.059639,
+        "lat": 22.723835
+      },
+      "lineIds": [
+        "4"
+      ]
+    },
+    {
+      "id": "station-观澜湖",
+      "name": "观澜湖",
+      "location": {
+        "lng": 114.071134,
+        "lat": 22.724281
+      },
+      "lineIds": [
+        "4"
+      ]
+    },
+    {
+      "id": "station-牛湖",
+      "name": "牛湖",
+      "location": {
+        "lng": 114.084113,
+        "lat": 22.72726
+      },
+      "lineIds": [
+        "4"
+      ]
+    },
+    {
+      "id": "station-荔湾",
+      "name": "荔湾",
+      "location": {
+        "lng": 113.888609,
+        "lat": 22.500872
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-铁路公园",
+      "name": "铁路公园",
+      "location": {
+        "lng": 113.885088,
+        "lat": 22.505957
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-妈湾",
+      "name": "妈湾",
+      "location": {
+        "lng": 113.881041,
+        "lat": 22.51095
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-前湾公园",
+      "name": "前湾公园",
+      "location": {
+        "lng": 113.884669,
+        "lat": 22.519156
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-前湾",
+      "name": "前湾",
+      "location": {
+        "lng": 113.89058,
+        "lat": 22.524872
+      },
+      "lineIds": [
+        "5",
+        "9"
+      ]
+    },
+    {
+      "id": "station-桂湾",
+      "name": "桂湾",
+      "location": {
+        "lng": 113.893071,
+        "lat": 22.53541
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-临海",
+      "name": "临海",
+      "location": {
+        "lng": 113.884438,
+        "lat": 22.547207
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-宝华",
+      "name": "宝华",
+      "location": {
+        "lng": 113.880198,
+        "lat": 22.552678
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-翻身",
+      "name": "翻身",
+      "location": {
+        "lng": 113.888352,
+        "lat": 22.562738
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-灵芝",
+      "name": "灵芝",
+      "location": {
+        "lng": 113.899289,
+        "lat": 22.572015
+      },
+      "lineIds": [
+        "5",
+        "12"
+      ]
+    },
+    {
+      "id": "station-洪浪北",
+      "name": "洪浪北",
+      "location": {
+        "lng": 113.90572,
+        "lat": 22.577593
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-兴东",
+      "name": "兴东",
+      "location": {
+        "lng": 113.91415,
+        "lat": 22.584868
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-留仙洞",
+      "name": "留仙洞",
+      "location": {
+        "lng": 113.938669,
+        "lat": 22.583553
+      },
+      "lineIds": [
+        "5",
+        "13"
+      ]
+    },
+    {
+      "id": "station-西丽",
+      "name": "西丽",
+      "location": {
+        "lng": 113.949508,
+        "lat": 22.583676
+      },
+      "lineIds": [
+        "5",
+        "7"
+      ]
+    },
+    {
+      "id": "station-大学城",
+      "name": "大学城",
+      "location": {
+        "lng": 113.960401,
+        "lat": 22.584921
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-塘朗",
+      "name": "塘朗",
+      "location": {
+        "lng": 113.994682,
+        "lat": 22.592975
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-长岭陂",
+      "name": "长岭陂",
+      "location": {
+        "lng": 114.005263,
+        "lat": 22.60224
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-民治",
+      "name": "民治",
+      "location": {
+        "lng": 114.035766,
+        "lat": 22.620301
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-五和",
+      "name": "五和",
+      "location": {
+        "lng": 114.055564,
+        "lat": 22.629544
+      },
+      "lineIds": [
+        "5",
+        "10"
+      ]
+    },
+    {
+      "id": "station-坂田",
+      "name": "坂田",
+      "location": {
+        "lng": 114.065725,
+        "lat": 22.630177
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-杨美",
+      "name": "杨美",
+      "location": {
+        "lng": 114.074842,
+        "lat": 22.62946
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-上水径",
+      "name": "上水径",
+      "location": {
+        "lng": 114.10021,
+        "lat": 22.624717
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-下水径",
+      "name": "下水径",
+      "location": {
+        "lng": 114.10554,
+        "lat": 22.617507
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-长龙",
+      "name": "长龙",
+      "location": {
+        "lng": 114.108707,
+        "lat": 22.610729
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-百鸽笼",
+      "name": "百鸽笼",
+      "location": {
+        "lng": 114.125288,
+        "lat": 22.598133
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-布心",
+      "name": "布心",
+      "location": {
+        "lng": 114.13297,
+        "lat": 22.583688
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-太安",
+      "name": "太安",
+      "location": {
+        "lng": 114.132042,
+        "lat": 22.576167
+      },
+      "lineIds": [
+        "5",
+        "7"
+      ]
+    },
+    {
+      "id": "station-怡景",
+      "name": "怡景",
+      "location": {
+        "lng": 114.135046,
+        "lat": 22.558563
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-东门",
+      "name": "东门",
+      "location": {
+        "lng": 114.111969,
+        "lat": 22.545631
+      },
+      "lineIds": [
+        "5"
+      ]
+    },
+    {
+      "id": "station-松岗",
+      "name": "松岗",
+      "location": {
+        "lng": 113.82265,
+        "lat": 22.774643
+      },
+      "lineIds": [
+        "6",
+        "11",
+        "12"
+      ]
+    },
+    {
+      "id": "station-溪头",
+      "name": "溪头",
+      "location": {
+        "lng": 113.832634,
+        "lat": 22.77757
+      },
+      "lineIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "station-松岗公园",
+      "name": "松岗公园",
+      "location": {
+        "lng": 113.843322,
+        "lat": 22.780861
+      },
+      "lineIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "station-薯田埔",
+      "name": "薯田埔",
+      "location": {
+        "lng": 113.862754,
+        "lat": 22.7839
+      },
+      "lineIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "station-合水口",
+      "name": "合水口",
+      "location": {
+        "lng": 113.876014,
+        "lat": 22.784598
+      },
+      "lineIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "station-公明广场",
+      "name": "公明广场",
+      "location": {
+        "lng": 113.886511,
+        "lat": 22.780426
+      },
+      "lineIds": [
+        "6",
+        "13"
+      ]
+    },
+    {
+      "id": "station-红花山",
+      "name": "红花山",
+      "location": {
+        "lng": 113.902412,
+        "lat": 22.780687
+      },
+      "lineIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "station-楼村",
+      "name": "楼村",
+      "location": {
+        "lng": 113.918532,
+        "lat": 22.778908
+      },
+      "lineIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "station-科学公园",
+      "name": "科学公园",
+      "location": {
+        "lng": 113.929236,
+        "lat": 22.780455
+      },
+      "lineIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "station-光明",
+      "name": "光明",
+      "location": {
+        "lng": 113.940353,
+        "lat": 22.774679
+      },
+      "lineIds": [
+        "6",
+        "6-branch"
+      ]
+    },
+    {
+      "id": "station-光明大街",
+      "name": "光明大街",
+      "location": {
+        "lng": 113.937829,
+        "lat": 22.764944
+      },
+      "lineIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "station-凤凰城",
+      "name": "凤凰城",
+      "location": {
+        "lng": 113.927955,
+        "lat": 22.750431
+      },
+      "lineIds": [
+        "6",
+        "13"
+      ]
+    },
+    {
+      "id": "station-长圳",
+      "name": "长圳",
+      "location": {
+        "lng": 113.926052,
+        "lat": 22.729338
+      },
+      "lineIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "station-上屋",
+      "name": "上屋",
+      "location": {
+        "lng": 113.934918,
+        "lat": 22.69186
+      },
+      "lineIds": [
+        "6",
+        "13"
+      ]
+    },
+    {
+      "id": "station-官田",
+      "name": "官田",
+      "location": {
+        "lng": 113.944775,
+        "lat": 22.686243
+      },
+      "lineIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "station-阳台山东",
+      "name": "阳台山东",
+      "location": {
+        "lng": 113.986631,
+        "lat": 22.670782
+      },
+      "lineIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "station-元芬",
+      "name": "元芬",
+      "location": {
+        "lng": 114.000135,
+        "lat": 22.659177
+      },
+      "lineIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "station-上芬",
+      "name": "上芬",
+      "location": {
+        "lng": 114.011607,
+        "lat": 22.643213
+      },
+      "lineIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "station-梅林关",
+      "name": "梅林关",
+      "location": {
+        "lng": 114.048635,
+        "lat": 22.596396
+      },
+      "lineIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "station-翰岭",
+      "name": "翰岭",
+      "location": {
+        "lng": 114.063772,
+        "lat": 22.576883
+      },
+      "lineIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "station-银湖",
+      "name": "银湖",
+      "location": {
+        "lng": 114.08472,
+        "lat": 22.570991
+      },
+      "lineIds": [
+        "6",
+        "9"
+      ]
+    },
+    {
+      "id": "station-八卦岭",
+      "name": "八卦岭",
+      "location": {
+        "lng": 114.08952,
+        "lat": 22.564622
+      },
+      "lineIds": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "id": "station-体育中心",
+      "name": "体育中心",
+      "location": {
+        "lng": 114.090975,
+        "lat": 22.557354
+      },
+      "lineIds": [
+        "6"
+      ]
+    },
+    {
+      "id": "station-光明城",
+      "name": "光明城",
+      "location": {
+        "lng": 113.948673,
+        "lat": 22.735993
+      },
+      "lineIds": [
+        "6-branch",
+        "13"
+      ]
+    },
+    {
+      "id": "station-虹桥公园",
+      "name": "虹桥公园",
+      "location": {
+        "lng": 113.945273,
+        "lat": 22.752938
+      },
+      "lineIds": [
+        "6-branch"
+      ]
+    },
+    {
+      "id": "station-碧眼",
+      "name": "碧眼",
+      "location": {
+        "lng": 113.946177,
+        "lat": 22.760954
+      },
+      "lineIds": [
+        "6-branch"
+      ]
+    },
+    {
+      "id": "station-圳美",
+      "name": "圳美",
+      "location": {
+        "lng": 113.944381,
+        "lat": 22.790774
+      },
+      "lineIds": [
+        "6-branch"
+      ]
+    },
+    {
+      "id": "station-中大",
+      "name": "中大",
+      "location": {
+        "lng": 113.948646,
+        "lat": 22.799766
+      },
+      "lineIds": [
+        "6-branch"
+      ]
+    },
+    {
+      "id": "station-深理工",
+      "name": "深理工",
+      "location": {
+        "lng": 113.963668,
+        "lat": 22.809289
+      },
+      "lineIds": [
+        "6-branch"
+      ]
+    },
+    {
+      "id": "station-深大丽湖",
+      "name": "深大丽湖",
+      "location": {
+        "lng": 113.983424,
+        "lat": 22.595815
+      },
+      "lineIds": [
+        "7"
+      ]
+    },
+    {
+      "id": "station-北大",
+      "name": "北大",
+      "location": {
+        "lng": 113.97338,
+        "lat": 22.596938
+      },
+      "lineIds": [
+        "7"
+      ]
+    },
+    {
+      "id": "station-西丽湖",
+      "name": "西丽湖",
+      "location": {
+        "lng": 113.960741,
+        "lat": 22.59654
+      },
+      "lineIds": [
+        "7"
+      ]
+    },
+    {
+      "id": "station-茶光",
+      "name": "茶光",
+      "location": {
+        "lng": 113.949424,
+        "lat": 22.577138
+      },
+      "lineIds": [
+        "7"
+      ]
+    },
+    {
+      "id": "station-珠光",
+      "name": "珠光",
+      "location": {
+        "lng": 113.955662,
+        "lat": 22.571258
+      },
+      "lineIds": [
+        "7"
+      ]
+    },
+    {
+      "id": "station-龙井",
+      "name": "龙井",
+      "location": {
+        "lng": 113.969763,
+        "lat": 22.566963
+      },
+      "lineIds": [
+        "7"
+      ]
+    },
+    {
+      "id": "station-桃源村",
+      "name": "桃源村",
+      "location": {
+        "lng": 113.977022,
+        "lat": 22.562834
+      },
+      "lineIds": [
+        "7"
+      ]
+    },
+    {
+      "id": "station-深云",
+      "name": "深云",
+      "location": {
+        "lng": 113.988759,
+        "lat": 22.559437
+      },
+      "lineIds": [
+        "7"
+      ]
+    },
+    {
+      "id": "station-农林",
+      "name": "农林",
+      "location": {
+        "lng": 114.013107,
+        "lat": 22.543239
+      },
+      "lineIds": [
+        "7"
+      ]
+    },
+    {
+      "id": "station-上沙",
+      "name": "上沙",
+      "location": {
+        "lng": 114.030437,
+        "lat": 22.527392
+      },
+      "lineIds": [
+        "7"
+      ]
+    },
+    {
+      "id": "station-沙尾",
+      "name": "沙尾",
+      "location": {
+        "lng": 114.037498,
+        "lat": 22.52356
+      },
+      "lineIds": [
+        "7"
+      ]
+    },
+    {
+      "id": "station-皇岗村",
+      "name": "皇岗村",
+      "location": {
+        "lng": 114.054714,
+        "lat": 22.525862
+      },
+      "lineIds": [
+        "7"
+      ]
+    },
+    {
+      "id": "station-皇岗口岸",
+      "name": "皇岗口岸",
+      "location": {
+        "lng": 114.068849,
+        "lat": 22.5245
+      },
+      "lineIds": [
+        "7"
+      ]
+    },
+    {
+      "id": "station-赤尾",
+      "name": "赤尾",
+      "location": {
+        "lng": 114.07847,
+        "lat": 22.534064
+      },
+      "lineIds": [
+        "7"
+      ]
+    },
+    {
+      "id": "station-华强南",
+      "name": "华强南",
+      "location": {
+        "lng": 114.081696,
+        "lat": 22.539901
+      },
+      "lineIds": [
+        "7",
+        "11"
+      ]
+    },
+    {
+      "id": "station-黄木岗",
+      "name": "黄木岗",
+      "location": {
+        "lng": 114.082104,
+        "lat": 22.558385
+      },
+      "lineIds": [
+        "7",
+        "14"
+      ]
+    },
+    {
+      "id": "station-红岭北",
+      "name": "红岭北",
+      "location": {
+        "lng": 114.099191,
+        "lat": 22.564709
+      },
+      "lineIds": [
+        "7",
+        "9"
+      ]
+    },
+    {
+      "id": "station-笋岗",
+      "name": "笋岗",
+      "location": {
+        "lng": 114.106177,
+        "lat": 22.566087
+      },
+      "lineIds": [
+        "7"
+      ]
+    },
+    {
+      "id": "station-洪湖",
+      "name": "洪湖",
+      "location": {
+        "lng": 114.117362,
+        "lat": 22.568743
+      },
+      "lineIds": [
+        "7"
+      ]
+    },
+    {
+      "id": "station-梦海",
+      "name": "梦海",
+      "location": {
+        "lng": 113.893935,
+        "lat": 22.521978
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-怡海",
+      "name": "怡海",
+      "location": {
+        "lng": 113.898892,
+        "lat": 22.517987
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-荔林",
+      "name": "荔林",
+      "location": {
+        "lng": 113.908268,
+        "lat": 22.514957
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-南油西",
+      "name": "南油西",
+      "location": {
+        "lng": 113.913544,
+        "lat": 22.512126
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-南油",
+      "name": "南油",
+      "location": {
+        "lng": 113.920907,
+        "lat": 22.513285
+      },
+      "lineIds": [
+        "9",
+        "12"
+      ]
+    },
+    {
+      "id": "station-南山书城",
+      "name": "南山书城",
+      "location": {
+        "lng": 113.923797,
+        "lat": 22.522399
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-深大南",
+      "name": "深大南",
+      "location": {
+        "lng": 113.930811,
+        "lat": 22.529051
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-粤海门",
+      "name": "粤海门",
+      "location": {
+        "lng": 113.940658,
+        "lat": 22.535715
+      },
+      "lineIds": [
+        "9",
+        "13"
+      ]
+    },
+    {
+      "id": "station-高新南",
+      "name": "高新南",
+      "location": {
+        "lng": 113.9452,
+        "lat": 22.535809
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-红树湾南",
+      "name": "红树湾南",
+      "location": {
+        "lng": 113.966519,
+        "lat": 22.525988
+      },
+      "lineIds": [
+        "9",
+        "11"
+      ]
+    },
+    {
+      "id": "station-深湾",
+      "name": "深湾",
+      "location": {
+        "lng": 113.97369,
+        "lat": 22.526024
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-深圳湾公园",
+      "name": "深圳湾公园",
+      "location": {
+        "lng": 113.98815,
+        "lat": 22.524495
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-下沙",
+      "name": "下沙",
+      "location": {
+        "lng": 114.019292,
+        "lat": 22.53171
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-香梅",
+      "name": "香梅",
+      "location": {
+        "lng": 114.034606,
+        "lat": 22.548124
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-梅景",
+      "name": "梅景",
+      "location": {
+        "lng": 114.03286,
+        "lat": 22.563799
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-下梅林",
+      "name": "下梅林",
+      "location": {
+        "lng": 114.036686,
+        "lat": 22.568433
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-梅村",
+      "name": "梅村",
+      "location": {
+        "lng": 114.047322,
+        "lat": 22.571179
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-孖岭",
+      "name": "孖岭",
+      "location": {
+        "lng": 114.062657,
+        "lat": 22.571165
+      },
+      "lineIds": [
+        "9",
+        "10"
+      ]
+    },
+    {
+      "id": "station-泥岗",
+      "name": "泥岗",
+      "location": {
+        "lng": 114.092505,
+        "lat": 22.570484
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-园岭",
+      "name": "园岭",
+      "location": {
+        "lng": 114.099373,
+        "lat": 22.558968
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-红岭南",
+      "name": "红岭南",
+      "location": {
+        "lng": 114.10114,
+        "lat": 22.541172
+      },
+      "lineIds": [
+        "9",
+        "11"
+      ]
+    },
+    {
+      "id": "station-鹿丹村",
+      "name": "鹿丹村",
+      "location": {
+        "lng": 114.103506,
+        "lat": 22.53839
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-人民南",
+      "name": "人民南",
+      "location": {
+        "lng": 114.113046,
+        "lat": 22.5382
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-向西村",
+      "name": "向西村",
+      "location": {
+        "lng": 114.120671,
+        "lat": 22.542484
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-文锦",
+      "name": "文锦",
+      "location": {
+        "lng": 114.125875,
+        "lat": 22.544956
+      },
+      "lineIds": [
+        "9"
+      ]
+    },
+    {
+      "id": "station-双拥街",
+      "name": "双拥街",
+      "location": {
+        "lng": 114.127885,
+        "lat": 22.701321
+      },
+      "lineIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "station-平湖",
+      "name": "平湖",
+      "location": {
+        "lng": 114.120699,
+        "lat": 22.696337
+      },
+      "lineIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "station-禾花",
+      "name": "禾花",
+      "location": {
+        "lng": 114.115951,
+        "lat": 22.688693
+      },
+      "lineIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "station-华南城",
+      "name": "华南城",
+      "location": {
+        "lng": 114.117139,
+        "lat": 22.678642
+      },
+      "lineIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "station-木古",
+      "name": "木古",
+      "location": {
+        "lng": 114.117392,
+        "lat": 22.671998
+      },
+      "lineIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "station-上李朗",
+      "name": "上李朗",
+      "location": {
+        "lng": 114.12197,
+        "lat": 22.656725
+      },
+      "lineIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "station-凉帽山",
+      "name": "凉帽山",
+      "location": {
+        "lng": 114.11385,
+        "lat": 22.648995
+      },
+      "lineIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "station-甘坑",
+      "name": "甘坑",
+      "location": {
+        "lng": 114.100697,
+        "lat": 22.650495
+      },
+      "lineIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "station-雪象",
+      "name": "雪象",
+      "location": {
+        "lng": 114.073829,
+        "lat": 22.659587
+      },
+      "lineIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "station-岗头",
+      "name": "岗头",
+      "location": {
+        "lng": 114.066765,
+        "lat": 22.659754
+      },
+      "lineIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "station-华为",
+      "name": "华为",
+      "location": {
+        "lng": 114.062045,
+        "lat": 22.65314
+      },
+      "lineIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "station-贝尔路",
+      "name": "贝尔路",
+      "location": {
+        "lng": 114.061242,
+        "lat": 22.644417
+      },
+      "lineIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "station-坂田北",
+      "name": "坂田北",
+      "location": {
+        "lng": 114.058248,
+        "lat": 22.637623
+      },
+      "lineIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "station-光雅园",
+      "name": "光雅园",
+      "location": {
+        "lng": 114.055776,
+        "lat": 22.619109
+      },
+      "lineIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "station-南坑",
+      "name": "南坑",
+      "location": {
+        "lng": 114.05543,
+        "lat": 22.613608
+      },
+      "lineIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "station-雅宝",
+      "name": "雅宝",
+      "location": {
+        "lng": 114.055194,
+        "lat": 22.607256
+      },
+      "lineIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "station-冬瓜岭",
+      "name": "冬瓜岭",
+      "location": {
+        "lng": 114.062472,
+        "lat": 22.563145
+      },
+      "lineIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "station-碧头",
+      "name": "碧头",
+      "location": {
+        "lng": 113.814894,
+        "lat": 22.78693
+      },
+      "lineIds": [
+        "11"
+      ]
+    },
+    {
+      "id": "station-后亭",
+      "name": "后亭",
+      "location": {
+        "lng": 113.82183,
+        "lat": 22.755534
+      },
+      "lineIds": [
+        "11"
+      ]
+    },
+    {
+      "id": "station-沙井",
+      "name": "沙井",
+      "location": {
+        "lng": 113.819385,
+        "lat": 22.73376
+      },
+      "lineIds": [
+        "11"
+      ]
+    },
+    {
+      "id": "station-马安山",
+      "name": "马安山",
+      "location": {
+        "lng": 113.811938,
+        "lat": 22.719899
+      },
+      "lineIds": [
+        "11"
+      ]
+    },
+    {
+      "id": "station-塘尾",
+      "name": "塘尾",
+      "location": {
+        "lng": 113.812814,
+        "lat": 22.704982
+      },
+      "lineIds": [
+        "11"
+      ]
+    },
+    {
+      "id": "station-桥头",
+      "name": "桥头",
+      "location": {
+        "lng": 113.80592,
+        "lat": 22.691031
+      },
+      "lineIds": [
+        "11"
+      ]
+    },
+    {
+      "id": "station-福永",
+      "name": "福永",
+      "location": {
+        "lng": 113.800984,
+        "lat": 22.676456
+      },
+      "lineIds": [
+        "11",
+        "12"
+      ]
+    },
+    {
+      "id": "station-机场北",
+      "name": "机场北",
+      "location": {
+        "lng": 113.793071,
+        "lat": 22.654015
+      },
+      "lineIds": [
+        "11",
+        "20"
+      ]
+    },
+    {
+      "id": "station-机场",
+      "name": "机场",
+      "location": {
+        "lng": 113.808593,
+        "lat": 22.626943
+      },
+      "lineIds": [
+        "11"
+      ]
+    },
+    {
+      "id": "station-碧海湾",
+      "name": "碧海湾",
+      "location": {
+        "lng": 113.851138,
+        "lat": 22.578075
+      },
+      "lineIds": [
+        "11"
+      ]
+    },
+    {
+      "id": "station-宝安",
+      "name": "宝安",
+      "location": {
+        "lng": 113.875496,
+        "lat": 22.557628
+      },
+      "lineIds": [
+        "11"
+      ]
+    },
+    {
+      "id": "station-南山",
+      "name": "南山",
+      "location": {
+        "lng": 113.918624,
+        "lat": 22.527085
+      },
+      "lineIds": [
+        "11",
+        "12"
+      ]
+    },
+    {
+      "id": "station-福星",
+      "name": "福星",
+      "location": {
+        "lng": 114.07641,
+        "lat": 22.54008
+      },
+      "lineIds": [
+        "11"
+      ]
+    },
+    {
+      "id": "station-朗下",
+      "name": "朗下",
+      "location": {
+        "lng": 113.813047,
+        "lat": 22.770801
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-步涌",
+      "name": "步涌",
+      "location": {
+        "lng": 113.807099,
+        "lat": 22.760206
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-沙井古墟",
+      "name": "沙井古墟",
+      "location": {
+        "lng": 113.803464,
+        "lat": 22.746983
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-沙蚝",
+      "name": "沙蚝",
+      "location": {
+        "lng": 113.796484,
+        "lat": 22.742476
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-蚝乡",
+      "name": "蚝乡",
+      "location": {
+        "lng": 113.785018,
+        "lat": 22.743398
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-海上田园东",
+      "name": "海上田园东",
+      "location": {
+        "lng": 113.776089,
+        "lat": 22.734039
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-海上田园南",
+      "name": "海上田园南",
+      "location": {
+        "lng": 113.76925,
+        "lat": 22.721119
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-国展北",
+      "name": "国展北",
+      "location": {
+        "lng": 113.771748,
+        "lat": 22.705979
+      },
+      "lineIds": [
+        "12",
+        "20"
+      ]
+    },
+    {
+      "id": "station-国展",
+      "name": "国展",
+      "location": {
+        "lng": 113.772808,
+        "lat": 22.698812
+      },
+      "lineIds": [
+        "12",
+        "20"
+      ]
+    },
+    {
+      "id": "station-福海西",
+      "name": "福海西",
+      "location": {
+        "lng": 113.784346,
+        "lat": 22.691251
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-桥头西",
+      "name": "桥头西",
+      "location": {
+        "lng": 113.792317,
+        "lat": 22.685975
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-怀德",
+      "name": "怀德",
+      "location": {
+        "lng": 113.813835,
+        "lat": 22.669574
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-福围",
+      "name": "福围",
+      "location": {
+        "lng": 113.816127,
+        "lat": 22.659764
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-兴围",
+      "name": "兴围",
+      "location": {
+        "lng": 113.82947,
+        "lat": 22.645817
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-黄田",
+      "name": "黄田",
+      "location": {
+        "lng": 113.840698,
+        "lat": 22.63318
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-钟屋南",
+      "name": "钟屋南",
+      "location": {
+        "lng": 113.854277,
+        "lat": 22.621543
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-西乡桃源",
+      "name": "西乡桃源",
+      "location": {
+        "lng": 113.857406,
+        "lat": 22.614026
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-平峦山",
+      "name": "平峦山",
+      "location": {
+        "lng": 113.864847,
+        "lat": 22.606202
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-宝田一路",
+      "name": "宝田一路",
+      "location": {
+        "lng": 113.873571,
+        "lat": 22.597554
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-宝安客运站",
+      "name": "宝安客运站",
+      "location": {
+        "lng": 113.878778,
+        "lat": 22.592369
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-流塘",
+      "name": "流塘",
+      "location": {
+        "lng": 113.884405,
+        "lat": 22.586772
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-上川",
+      "name": "上川",
+      "location": {
+        "lng": 113.89025,
+        "lat": 22.580885
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-新安公园",
+      "name": "新安公园",
+      "location": {
+        "lng": 113.906019,
+        "lat": 22.565354
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-同乐南",
+      "name": "同乐南",
+      "location": {
+        "lng": 113.913877,
+        "lat": 22.55941
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-中山公园",
+      "name": "中山公园",
+      "location": {
+        "lng": 113.918365,
+        "lat": 22.550068
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-南头古城",
+      "name": "南头古城",
+      "location": {
+        "lng": 113.919285,
+        "lat": 22.541512
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-南光",
+      "name": "南光",
+      "location": {
+        "lng": 113.919463,
+        "lat": 22.519762
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-四海",
+      "name": "四海",
+      "location": {
+        "lng": 113.917121,
+        "lat": 22.503388
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-花果山",
+      "name": "花果山",
+      "location": {
+        "lng": 113.914189,
+        "lat": 22.497404
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-太子湾",
+      "name": "太子湾",
+      "location": {
+        "lng": 113.906259,
+        "lat": 22.47586
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-左炮台东",
+      "name": "左炮台东",
+      "location": {
+        "lng": 113.893024,
+        "lat": 22.472567
+      },
+      "lineIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "station-深圳湾口岸",
+      "name": "深圳湾口岸",
+      "location": {
+        "lng": 113.945375,
+        "lat": 22.50599
+      },
+      "lineIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "station-人才公园",
+      "name": "人才公园",
+      "location": {
+        "lng": 113.938257,
+        "lat": 22.515103
+      },
+      "lineIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "station-高新中",
+      "name": "高新中",
+      "location": {
+        "lng": 113.940445,
+        "lat": 22.550032
+      },
+      "lineIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "station-高新北",
+      "name": "高新北",
+      "location": {
+        "lng": 113.940622,
+        "lat": 22.559841
+      },
+      "lineIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "station-石鼓",
+      "name": "石鼓",
+      "location": {
+        "lng": 113.939134,
+        "lat": 22.577448
+      },
+      "lineIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "station-百旺",
+      "name": "百旺",
+      "location": {
+        "lng": 113.93432,
+        "lat": 22.625093
+      },
+      "lineIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "station-应人石",
+      "name": "应人石",
+      "location": {
+        "lng": 113.921602,
+        "lat": 22.647502
+      },
+      "lineIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "station-罗租",
+      "name": "罗租",
+      "location": {
+        "lng": 113.928947,
+        "lat": 22.671196
+      },
+      "lineIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "station-石岩",
+      "name": "石岩",
+      "location": {
+        "lng": 113.933342,
+        "lat": 22.683151
+      },
+      "lineIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "station-红坳公园",
+      "name": "红坳公园",
+      "location": {
+        "lng": 113.94147,
+        "lat": 22.726609
+      },
+      "lineIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "station-德雅路",
+      "name": "德雅路",
+      "location": {
+        "lng": 113.942586,
+        "lat": 22.741821
+      },
+      "lineIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "station-月亮路",
+      "name": "月亮路",
+      "location": {
+        "lng": 113.906184,
+        "lat": 22.74926
+      },
+      "lineIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "station-将围",
+      "name": "将围",
+      "location": {
+        "lng": 113.900554,
+        "lat": 22.76098
+      },
+      "lineIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "station-新庄",
+      "name": "新庄",
+      "location": {
+        "lng": 113.897747,
+        "lat": 22.768859
+      },
+      "lineIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "station-上村",
+      "name": "上村",
+      "location": {
+        "lng": 113.889506,
+        "lat": 22.787693
+      },
+      "lineIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "station-下村",
+      "name": "下村",
+      "location": {
+        "lng": 113.889561,
+        "lat": 22.796671
+      },
+      "lineIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "station-李松蓢",
+      "name": "李松蓢",
+      "location": {
+        "lng": 113.889371,
+        "lat": 22.808101
+      },
+      "lineIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "station-罗湖北",
+      "name": "罗湖北",
+      "location": {
+        "lng": 114.107899,
+        "lat": 22.583429
+      },
+      "lineIds": [
+        "14"
+      ]
+    },
+    {
+      "id": "station-石芽岭",
+      "name": "石芽岭",
+      "location": {
+        "lng": 114.132936,
+        "lat": 22.631143
+      },
+      "lineIds": [
+        "14"
+      ]
+    },
+    {
+      "id": "station-六约北",
+      "name": "六约北",
+      "location": {
+        "lng": 114.170744,
+        "lat": 22.645292
+      },
+      "lineIds": [
+        "14"
+      ]
+    },
+    {
+      "id": "station-四联",
+      "name": "四联",
+      "location": {
+        "lng": 114.187919,
+        "lat": 22.651211
+      },
+      "lineIds": [
+        "14"
+      ]
+    },
+    {
+      "id": "station-坳背",
+      "name": "坳背",
+      "location": {
+        "lng": 114.208628,
+        "lat": 22.671529
+      },
+      "lineIds": [
+        "14"
+      ]
+    },
+    {
+      "id": "station-嶂背",
+      "name": "嶂背",
+      "location": {
+        "lng": 114.244711,
+        "lat": 22.695136
+      },
+      "lineIds": [
+        "14"
+      ]
+    },
+    {
+      "id": "station-南约",
+      "name": "南约",
+      "location": {
+        "lng": 114.273246,
+        "lat": 22.690938
+      },
+      "lineIds": [
+        "14"
+      ]
+    },
+    {
+      "id": "station-宝龙",
+      "name": "宝龙",
+      "location": {
+        "lng": 114.292984,
+        "lat": 22.691133
+      },
+      "lineIds": [
+        "14"
+      ]
+    },
+    {
+      "id": "station-锦龙",
+      "name": "锦龙",
+      "location": {
+        "lng": 114.328957,
+        "lat": 22.68293
+      },
+      "lineIds": [
+        "14"
+      ]
+    },
+    {
+      "id": "station-坪山围",
+      "name": "坪山围",
+      "location": {
+        "lng": 114.338755,
+        "lat": 22.694124
+      },
+      "lineIds": [
+        "14",
+        "16"
+      ]
+    },
+    {
+      "id": "station-坪山广场",
+      "name": "坪山广场",
+      "location": {
+        "lng": 114.34385,
+        "lat": 22.703301
+      },
+      "lineIds": [
+        "14"
+      ]
+    },
+    {
+      "id": "station-坪山中心",
+      "name": "坪山中心",
+      "location": {
+        "lng": 114.346695,
+        "lat": 22.709605
+      },
+      "lineIds": [
+        "14"
+      ]
+    },
+    {
+      "id": "station-坑梓",
+      "name": "坑梓",
+      "location": {
+        "lng": 114.366012,
+        "lat": 22.74805
+      },
+      "lineIds": [
+        "14"
+      ]
+    },
+    {
+      "id": "station-沙田",
+      "name": "沙田",
+      "location": {
+        "lng": 114.395631,
+        "lat": 22.758787
+      },
+      "lineIds": [
+        "14"
+      ]
+    },
+    {
+      "id": "station-园山西坑",
+      "name": "园山西坑",
+      "location": {
+        "lng": 114.219568,
+        "lat": 22.619589
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-安良",
+      "name": "安良",
+      "location": {
+        "lng": 114.214836,
+        "lat": 22.630114
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-福坑",
+      "name": "福坑",
+      "location": {
+        "lng": 114.217262,
+        "lat": 22.638498
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-大康",
+      "name": "大康",
+      "location": {
+        "lng": 114.223997,
+        "lat": 22.641718
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-园山",
+      "name": "园山",
+      "location": {
+        "lng": 114.23323,
+        "lat": 22.648008
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-大安",
+      "name": "大安",
+      "location": {
+        "lng": 114.23109,
+        "lat": 22.657487
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-吉溪",
+      "name": "吉溪",
+      "location": {
+        "lng": 114.227958,
+        "lat": 22.66307
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-金源",
+      "name": "金源",
+      "location": {
+        "lng": 114.22553,
+        "lat": 22.676853
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-大运中心",
+      "name": "大运中心",
+      "location": {
+        "lng": 114.21592,
+        "lat": 22.69806
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-龙城公园",
+      "name": "龙城公园",
+      "location": {
+        "lng": 114.213491,
+        "lat": 22.707288
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-黄阁坑",
+      "name": "黄阁坑",
+      "location": {
+        "lng": 114.213251,
+        "lat": 22.721887
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-愉园",
+      "name": "愉园",
+      "location": {
+        "lng": 114.2185,
+        "lat": 22.731088
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-回龙埔",
+      "name": "回龙埔",
+      "location": {
+        "lng": 114.231007,
+        "lat": 22.732016
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-尚景",
+      "name": "尚景",
+      "location": {
+        "lng": 114.238743,
+        "lat": 22.732187
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-盛平",
+      "name": "盛平",
+      "location": {
+        "lng": 114.247846,
+        "lat": 22.734454
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-龙园",
+      "name": "龙园",
+      "location": {
+        "lng": 114.261505,
+        "lat": 22.733832
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-新塘围",
+      "name": "新塘围",
+      "location": {
+        "lng": 114.281592,
+        "lat": 22.728245
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-龙东",
+      "name": "龙东",
+      "location": {
+        "lng": 114.291555,
+        "lat": 22.724321
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-宝龙同乐",
+      "name": "宝龙同乐",
+      "location": {
+        "lng": 114.307416,
+        "lat": 22.711976
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-坪山",
+      "name": "坪山",
+      "location": {
+        "lng": 114.32255,
+        "lat": 22.708468
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-新和",
+      "name": "新和",
+      "location": {
+        "lng": 114.330584,
+        "lat": 22.705879
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-六和",
+      "name": "六和",
+      "location": {
+        "lng": 114.33284,
+        "lat": 22.698749
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-坪环",
+      "name": "坪环",
+      "location": {
+        "lng": 114.341722,
+        "lat": 22.688068
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-东纵纪念馆",
+      "name": "东纵纪念馆",
+      "location": {
+        "lng": 114.350208,
+        "lat": 22.688687
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-沙壆",
+      "name": "沙壆",
+      "location": {
+        "lng": 114.359996,
+        "lat": 22.689171
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-燕子湖",
+      "name": "燕子湖",
+      "location": {
+        "lng": 114.370393,
+        "lat": 22.691149
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-石井",
+      "name": "石井",
+      "location": {
+        "lng": 114.378097,
+        "lat": 22.69452
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-技术大学",
+      "name": "技术大学",
+      "location": {
+        "lng": 114.396214,
+        "lat": 22.701032
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-田心",
+      "name": "田心",
+      "location": {
+        "lng": 114.409274,
+        "lat": 22.696395
+      },
+      "lineIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "station-国展南",
+      "name": "国展南",
+      "location": {
+        "lng": 113.773279,
+        "lat": 22.686611
+      },
+      "lineIds": [
+        "20"
+      ]
+    },
+    {
+      "id": "station-会展城",
+      "name": "会展城",
+      "location": {
+        "lng": 113.764616,
+        "lat": 22.714978
+      },
+      "lineIds": [
+        "20"
+      ]
+    }
+  ],
+  "lines": [
+    {
+      "id": "1",
+      "name": "1 号线",
+      "color": "#00AB4F",
+      "stationIds": [
+        "station-罗湖",
+        "station-国贸",
+        "station-老街",
+        "station-大剧院",
+        "station-科学馆",
+        "station-华强路",
+        "station-岗厦",
+        "station-会展中心",
+        "station-购物公园",
+        "station-香蜜湖",
+        "station-车公庙",
+        "station-竹子林",
+        "station-侨城东",
+        "station-华侨城",
+        "station-世界之窗",
+        "station-白石洲",
+        "station-高新园",
+        "station-深大",
+        "station-桃园",
+        "station-大新",
+        "station-鲤鱼门",
+        "station-前海湾",
+        "station-新安",
+        "station-宝安中心",
+        "station-宝体",
+        "station-坪洲",
+        "station-西乡",
+        "station-固戍",
+        "station-后瑞",
+        "station-机场东"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "2 / 8 号线",
+      "color": "#B35A1F",
+      "stationIds": [
+        "station-赤湾",
+        "station-蛇口港",
+        "station-海上世界",
+        "station-水湾",
+        "station-东角头",
+        "station-湾厦",
+        "station-海月",
+        "station-登良",
+        "station-后海",
+        "station-科苑",
+        "station-红树湾",
+        "station-世界之窗",
+        "station-侨城北",
+        "station-深康",
+        "station-安托山",
+        "station-侨香",
+        "station-香蜜",
+        "station-香梅北",
+        "station-景田",
+        "station-莲花西",
+        "station-福田",
+        "station-市民中心",
+        "station-岗厦北",
+        "station-华强北",
+        "station-燕南",
+        "station-大剧院",
+        "station-湖贝",
+        "station-黄贝岭",
+        "station-新秀",
+        "station-莲塘口岸",
+        "station-仙湖路",
+        "station-莲塘",
+        "station-梧桐山南",
+        "station-沙头角",
+        "station-海山",
+        "station-盐田港西",
+        "station-深外高中",
+        "station-盐田路",
+        "station-鸿安围",
+        "station-盐田墟",
+        "station-大梅沙",
+        "station-小梅沙",
+        "station-溪涌"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "3 号线",
+      "color": "#01A2E2",
+      "stationIds": [
+        "station-福保",
+        "station-益田",
+        "station-石厦",
+        "station-购物公园",
+        "station-福田",
+        "station-少年宫",
+        "station-莲花村",
+        "station-华新",
+        "station-通新岭",
+        "station-红岭",
+        "station-老街",
+        "station-晒布",
+        "station-翠竹",
+        "station-田贝",
+        "station-水贝",
+        "station-草埔",
+        "station-布吉",
+        "station-木棉湾",
+        "station-大芬",
+        "station-丹竹头",
+        "station-六约",
+        "station-塘坑",
+        "station-横岗",
+        "station-永湖",
+        "station-荷坳",
+        "station-大运",
+        "station-爱联",
+        "station-吉祥",
+        "station-龙城广场",
+        "station-南联",
+        "station-双龙",
+        "station-梨园",
+        "station-新生",
+        "station-坪西",
+        "station-低碳城",
+        "station-白石塘",
+        "station-富坪",
+        "station-坪地六联"
+      ]
+    },
+    {
+      "id": "4",
+      "name": "4 号线",
+      "color": "#CC0000",
+      "stationIds": [
+        "station-福田口岸",
+        "station-福民",
+        "station-会展中心",
+        "station-市民中心",
+        "station-少年宫",
+        "station-莲花北",
+        "station-上梅林",
+        "station-民乐",
+        "station-白石龙",
+        "station-深圳北站",
+        "station-红山",
+        "station-上塘",
+        "station-龙胜",
+        "station-龙华",
+        "station-清湖",
+        "station-清湖北",
+        "station-竹村",
+        "station-茜坑",
+        "station-长湖",
+        "station-观澜",
+        "station-松元厦",
+        "station-观澜湖",
+        "station-牛湖"
+      ]
+    },
+    {
+      "id": "5",
+      "name": "5 号线",
+      "color": "#96499A",
+      "stationIds": [
+        "station-赤湾",
+        "station-荔湾",
+        "station-铁路公园",
+        "station-妈湾",
+        "station-前湾公园",
+        "station-前湾",
+        "station-桂湾",
+        "station-前海湾",
+        "station-临海",
+        "station-宝华",
+        "station-宝安中心",
+        "station-翻身",
+        "station-灵芝",
+        "station-洪浪北",
+        "station-兴东",
+        "station-留仙洞",
+        "station-西丽",
+        "station-大学城",
+        "station-塘朗",
+        "station-长岭陂",
+        "station-深圳北站",
+        "station-民治",
+        "station-五和",
+        "station-坂田",
+        "station-杨美",
+        "station-上水径",
+        "station-下水径",
+        "station-长龙",
+        "station-布吉",
+        "station-百鸽笼",
+        "station-布心",
+        "station-太安",
+        "station-怡景",
+        "station-黄贝岭",
+        "station-湖贝",
+        "station-东门",
+        "station-大剧院"
+      ]
+    },
+    {
+      "id": "6",
+      "name": "6 号线",
+      "color": "#00AD8E",
+      "stationIds": [
+        "station-松岗",
+        "station-溪头",
+        "station-松岗公园",
+        "station-薯田埔",
+        "station-合水口",
+        "station-公明广场",
+        "station-红花山",
+        "station-楼村",
+        "station-科学公园",
+        "station-光明",
+        "station-光明大街",
+        "station-凤凰城",
+        "station-长圳",
+        "station-上屋",
+        "station-官田",
+        "station-阳台山东",
+        "station-元芬",
+        "station-上芬",
+        "station-红山",
+        "station-深圳北站",
+        "station-梅林关",
+        "station-翰岭",
+        "station-银湖",
+        "station-八卦岭",
+        "station-体育中心",
+        "station-通新岭",
+        "station-科学馆"
+      ]
+    },
+    {
+      "id": "6-branch",
+      "name": "6 号线支线",
+      "color": "#008187",
+      "stationIds": [
+        "station-光明城",
+        "station-虹桥公园",
+        "station-碧眼",
+        "station-光明",
+        "station-圳美",
+        "station-中大",
+        "station-深理工"
+      ]
+    },
+    {
+      "id": "7",
+      "name": "7 号线",
+      "color": "#2249A3",
+      "stationIds": [
+        "station-深大丽湖",
+        "station-北大",
+        "station-西丽湖",
+        "station-西丽",
+        "station-茶光",
+        "station-珠光",
+        "station-龙井",
+        "station-桃源村",
+        "station-深云",
+        "station-安托山",
+        "station-农林",
+        "station-车公庙",
+        "station-上沙",
+        "station-沙尾",
+        "station-石厦",
+        "station-皇岗村",
+        "station-福民",
+        "station-皇岗口岸",
+        "station-赤尾",
+        "station-华强南",
+        "station-华强北",
+        "station-华新",
+        "station-黄木岗",
+        "station-八卦岭",
+        "station-红岭北",
+        "station-笋岗",
+        "station-洪湖",
+        "station-田贝",
+        "station-太安"
+      ]
+    },
+    {
+      "id": "9",
+      "name": "9 号线",
+      "color": "#86656D",
+      "stationIds": [
+        "station-前湾",
+        "station-梦海",
+        "station-怡海",
+        "station-荔林",
+        "station-南油西",
+        "station-南油",
+        "station-南山书城",
+        "station-深大南",
+        "station-粤海门",
+        "station-高新南",
+        "station-红树湾南",
+        "station-深湾",
+        "station-深圳湾公园",
+        "station-下沙",
+        "station-车公庙",
+        "station-香梅",
+        "station-景田",
+        "station-梅景",
+        "station-下梅林",
+        "station-梅村",
+        "station-上梅林",
+        "station-孖岭",
+        "station-银湖",
+        "station-泥岗",
+        "station-红岭北",
+        "station-园岭",
+        "station-红岭",
+        "station-红岭南",
+        "station-鹿丹村",
+        "station-人民南",
+        "station-向西村",
+        "station-文锦"
+      ]
+    },
+    {
+      "id": "10",
+      "name": "10 号线",
+      "color": "#EA6183",
+      "stationIds": [
+        "station-双拥街",
+        "station-平湖",
+        "station-禾花",
+        "station-华南城",
+        "station-木古",
+        "station-上李朗",
+        "station-凉帽山",
+        "station-甘坑",
+        "station-雪象",
+        "station-岗头",
+        "station-华为",
+        "station-贝尔路",
+        "station-坂田北",
+        "station-五和",
+        "station-光雅园",
+        "station-南坑",
+        "station-雅宝",
+        "station-孖岭",
+        "station-冬瓜岭",
+        "station-莲花村",
+        "station-岗厦北",
+        "station-岗厦",
+        "station-福民",
+        "station-福田口岸"
+      ]
+    },
+    {
+      "id": "11",
+      "name": "11 号线",
+      "color": "#741D51",
+      "stationIds": [
+        "station-碧头",
+        "station-松岗",
+        "station-后亭",
+        "station-沙井",
+        "station-马安山",
+        "station-塘尾",
+        "station-桥头",
+        "station-福永",
+        "station-机场北",
+        "station-机场",
+        "station-碧海湾",
+        "station-宝安",
+        "station-前海湾",
+        "station-南山",
+        "station-后海",
+        "station-红树湾南",
+        "station-车公庙",
+        "station-福田",
+        "station-岗厦北",
+        "station-福星",
+        "station-华强南",
+        "station-红岭南"
+      ]
+    },
+    {
+      "id": "12",
+      "name": "12 号线",
+      "color": "#A49ABD",
+      "stationIds": [
+        "station-松岗",
+        "station-朗下",
+        "station-步涌",
+        "station-沙井古墟",
+        "station-沙蚝",
+        "station-蚝乡",
+        "station-海上田园东",
+        "station-海上田园南",
+        "station-国展北",
+        "station-国展",
+        "station-福海西",
+        "station-桥头西",
+        "station-福永",
+        "station-怀德",
+        "station-福围",
+        "station-机场东",
+        "station-兴围",
+        "station-黄田",
+        "station-钟屋南",
+        "station-西乡桃源",
+        "station-平峦山",
+        "station-宝田一路",
+        "station-宝安客运站",
+        "station-流塘",
+        "station-上川",
+        "station-灵芝",
+        "station-新安公园",
+        "station-同乐南",
+        "station-中山公园",
+        "station-南头古城",
+        "station-桃园",
+        "station-南山",
+        "station-南光",
+        "station-南油",
+        "station-四海",
+        "station-花果山",
+        "station-海上世界",
+        "station-太子湾",
+        "station-左炮台东"
+      ]
+    },
+    {
+      "id": "13",
+      "name": "13 号线",
+      "color": "#EE782E",
+      "stationIds": [
+        "station-深圳湾口岸",
+        "station-人才公园",
+        "station-后海",
+        "station-科苑",
+        "station-粤海门",
+        "station-深大",
+        "station-高新中",
+        "station-高新北",
+        "station-石鼓",
+        "station-留仙洞",
+        "station-百旺",
+        "station-应人石",
+        "station-罗租",
+        "station-石岩",
+        "station-上屋",
+        "station-红坳公园",
+        "station-光明城",
+        "station-德雅路",
+        "station-凤凰城",
+        "station-月亮路",
+        "station-将围",
+        "station-新庄",
+        "station-公明广场",
+        "station-上村",
+        "station-下村",
+        "station-李松蓢"
+      ]
+    },
+    {
+      "id": "14",
+      "name": "14 号线",
+      "color": "#DAC17D",
+      "stationIds": [
+        "station-岗厦北",
+        "station-黄木岗",
+        "station-罗湖北",
+        "station-布吉",
+        "station-石芽岭",
+        "station-六约北",
+        "station-四联",
+        "station-坳背",
+        "station-大运",
+        "station-嶂背",
+        "station-南约",
+        "station-宝龙",
+        "station-锦龙",
+        "station-坪山围",
+        "station-坪山广场",
+        "station-坪山中心",
+        "station-坑梓",
+        "station-沙田"
+      ]
+    },
+    {
+      "id": "16",
+      "name": "16 号线",
+      "color": "#1C24A4",
+      "stationIds": [
+        "station-园山西坑",
+        "station-安良",
+        "station-福坑",
+        "station-大康",
+        "station-园山",
+        "station-大安",
+        "station-吉溪",
+        "station-金源",
+        "station-大运",
+        "station-大运中心",
+        "station-龙城公园",
+        "station-黄阁坑",
+        "station-愉园",
+        "station-回龙埔",
+        "station-尚景",
+        "station-盛平",
+        "station-龙园",
+        "station-双龙",
+        "station-新塘围",
+        "station-龙东",
+        "station-宝龙同乐",
+        "station-坪山",
+        "station-新和",
+        "station-六和",
+        "station-坪山围",
+        "station-坪环",
+        "station-东纵纪念馆",
+        "station-沙壆",
+        "station-燕子湖",
+        "station-石井",
+        "station-技术大学",
+        "station-田心"
+      ]
+    },
+    {
+      "id": "20",
+      "name": "20 号线",
+      "color": "#019AC3",
+      "stationIds": [
+        "station-机场北",
+        "station-国展南",
+        "station-国展",
+        "station-国展北",
+        "station-会展城"
+      ]
+    }
+  ]
+}
