@@ -1,10 +1,25 @@
 export type Coordinate = { lng: number; lat: number };
 
+export type TravelMode = 'transit' | 'driving';
+
+/** Road time excludes the separate five-minute walk from parking to the destination. */
+export type DrivingRouteData = {
+  districtId: string;
+  minutes: number;
+  distanceKm: number;
+  coordinates: Coordinate[];
+};
+
+/** Keyed by drivingOriginKey(location), so changing an address cannot reuse another origin. */
+export type DrivingRouteOverrides = Record<string, DrivingRouteData[]>;
+
 export type Friend = {
   id: string;
   name: string;
   address: string;
   location: Coordinate;
+  /** Missing on older saved plans; interpreted as transit. */
+  travelMode?: TravelMode;
   /** Higher values protect this person's convenience; lower values mean willingness to travel. */
   weight: number;
   color: string;
@@ -37,7 +52,7 @@ export type District = {
 };
 
 export type RouteStep = {
-  type: 'walk' | 'metro' | 'transfer';
+  type: 'walk' | 'metro' | 'transfer' | 'drive';
   label: string;
   minutes: number;
   lineId?: string;
@@ -51,6 +66,9 @@ export type RouteStep = {
 
 export type PersonRoute = {
   friendId: string;
+  travelMode: TravelMode;
+  source: 'estimate' | 'amap';
+  distanceKm?: number;
   minutes: number;
   walkingMinutes: number;
   transfers: number;

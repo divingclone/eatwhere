@@ -1,4 +1,4 @@
-import snapshot from './data/metro.json';
+import snapshot from './data/metro.json' with { type: 'json' };
 import type { Coordinate, District, Friend, MetroLine, MetroStation } from './types';
 
 export const metroStations: MetroStation[] = snapshot.stations;
@@ -182,6 +182,7 @@ export const defaultFriends: Friend[] = [
     id: 'friend-1',
     name: '阿杰',
     address: '宝安中心站附近',
+    travelMode: 'transit',
     location: nearStation('宝安中心', -0.0017, 0.0008),
     weight: 1,
     color: '#f07850',
@@ -190,6 +191,7 @@ export const defaultFriends: Friend[] = [
     id: 'friend-2',
     name: '小林',
     address: '深圳北站附近',
+    travelMode: 'transit',
     location: nearStation('深圳北站', 0.002, 0.0011),
     weight: 1,
     color: '#7186db',
@@ -198,6 +200,7 @@ export const defaultFriends: Friend[] = [
     id: 'friend-3',
     name: '小周',
     address: '大运站附近',
+    travelMode: 'transit',
     location: nearStation('大运', -0.0017, 0.0006),
     weight: 1,
     color: '#4fa89a',

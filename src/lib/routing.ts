@@ -2,12 +2,15 @@ import { districts, metroLines, metroStations } from './data';
 import type {
   Coordinate,
   District,
+  DrivingRouteData,
+  DrivingRouteOverrides,
   Friend,
   MetroLine,
   MetroStation,
   PersonRoute,
   Recommendation,
   RouteStep,
+  TravelMode,
 } from './types';
 
 /** Transparent, deliberately approximate assumptions; no timetable or live service data. */
@@ -24,7 +27,15 @@ export const routingAssumptions = {
   regularSpeedKmh: 42,
   expressSpeedKmh: 62,
   perStopMinutes: 1,
+  drivingDetourFactor: 1.35,
+  drivingSpeedKmh: 30,
+  drivingArrivalWalkMinutes: 5,
 } as const;
+
+/** Exact coordinates identify an origin; friend IDs and weights never identify API data. */
+export function drivingOriginKey(location: Coordinate): string {
+  return `${location.lng},${location.lat}`;
+}
 
 export function distanceKm(a: Coordinate, b: Coordinate): number {
   const radians = Math.PI / 180;
@@ -144,7 +155,7 @@ function cacheSet<T>(cache: Map<string, T>, key: string, value: T, limit: number
 }
 
 function getOriginTree(location: Coordinate): OriginTree {
-  const cacheKey = `${location.lng},${location.lat}`;
+  const cacheKey = `transit|${drivingOriginKey(location)}`;
   const cached = originCache.get(cacheKey);
   if (cached) return cached;
   const tree: OriginTree = { costs: new Map(), previous: new Map(), roots: new Map() };
@@ -194,7 +205,13 @@ function combineCoordinates(steps: RouteStep[]): Coordinate[] {
   return coordinates;
 }
 
-function fromSteps(friendId: string, steps: RouteStep[]): PersonRoute {
+function fromSteps(
+  friendId: string,
+  steps: RouteStep[],
+  travelMode: TravelMode = 'transit',
+  source: PersonRoute['source'] = 'estimate',
+  drivingDistanceKm?: number,
+): PersonRoute {
   // Round each displayed step once, then sum; the timeline always adds up to the headline.
   const roundedSteps = steps.map((step) => ({
     ...step,
@@ -202,6 +219,9 @@ function fromSteps(friendId: string, steps: RouteStep[]): PersonRoute {
   }));
   return {
     friendId,
+    travelMode,
+    source,
+    ...(drivingDistanceKm === undefined ? {} : { distanceKm: drivingDistanceKm }),
     minutes: roundedSteps.reduce((sum, step) => sum + step.minutes, 0),
     walkingMinutes: roundedSteps
       .filter((step) => step.type === 'walk')
@@ -222,9 +242,11 @@ function isValidLocation(location: Coordinate): boolean {
   );
 }
 
-function unreachable(friendId: string): PersonRoute {
+function unreachable(friendId: string, travelMode: TravelMode = 'transit'): PersonRoute {
   return {
     friendId,
+    travelMode,
+    source: 'estimate',
     minutes: Infinity,
     walkingMinutes: 0,
     transfers: 0,
@@ -234,12 +256,97 @@ function unreachable(friendId: string): PersonRoute {
   };
 }
 
-export function planRoute(friend: Friend, district: District): PersonRoute {
+function drivingOverride(
+  friend: Friend,
+  district: District,
+  overrides?: DrivingRouteOverrides,
+): DrivingRouteData | undefined {
+  const candidates = overrides?.[drivingOriginKey(friend.location)];
+  if (!Array.isArray(candidates)) return undefined;
+  return candidates.find(
+    (candidate) =>
+      candidate?.districtId === district.id &&
+      Number.isFinite(candidate.minutes) &&
+      candidate.minutes >= 0 &&
+      Number.isFinite(candidate.distanceKm) &&
+      candidate.distanceKm >= 0 &&
+      Array.isArray(candidate.coordinates) &&
+      candidate.coordinates.length > 0 &&
+      candidate.coordinates.every(isValidLocation),
+  );
+}
+
+function drivingRoute(
+  friend: Friend,
+  district: District,
+  override?: DrivingRouteData,
+): PersonRoute {
+  const directDistance = distanceKm(friend.location, district.location);
+  const roadDistance =
+    override?.distanceKm ?? directDistance * routingAssumptions.drivingDetourFactor;
+  const roadMinutes = override?.minutes ?? (roadDistance / routingAssumptions.drivingSpeedKmh) * 60;
+  // An estimated line only illustrates the endpoints, never a navigable road geometry.
+  const coordinates = override
+    ? override.coordinates.map((coordinate) => ({ ...coordinate }))
+    : directDistance === 0
+      ? [friend.location]
+      : [friend.location, district.location];
+  return fromSteps(
+    friend.id,
+    [
+      {
+        type: 'drive',
+        label: `驾车至${district.name}${override ? '' : ' · 粗略估算'}`,
+        minutes: Math.max(1, roadMinutes),
+        from: friend.address,
+        to: district.name,
+        coordinates,
+      },
+      {
+        type: 'walk',
+        label: '下车后步行到店 · 预留约 5 分钟',
+        minutes: routingAssumptions.drivingArrivalWalkMinutes,
+        from: '下车处',
+        to: district.name,
+        // The actual parking place and restaurant entrance are unknown: draw no walk line.
+        coordinates: [district.location],
+      },
+    ],
+    'driving',
+    override ? 'amap' : 'estimate',
+    roadDistance,
+  );
+}
+
+export function planRoute(
+  friend: Friend,
+  district: District,
+  drivingRoutes?: DrivingRouteOverrides,
+): PersonRoute {
+  const travelMode = friend.travelMode === 'driving' ? 'driving' : 'transit';
   if (!isValidLocation(friend.location) || !isValidLocation(district.location))
-    return unreachable(friend.id);
-  const cacheKey = `${friend.id}|${friend.address}|${friend.location.lng},${friend.location.lat}|${district.id}|${district.name}|${district.location.lng},${district.location.lat}`;
+    return unreachable(friend.id, travelMode);
+  const override =
+    travelMode === 'driving' ? drivingOverride(friend, district, drivingRoutes) : undefined;
+  // Keep live road geometry/time separate from estimates, including replacement API results.
+  const cacheKey = JSON.stringify([
+    travelMode,
+    friend.id,
+    friend.address,
+    drivingOriginKey(friend.location),
+    district.id,
+    district.name,
+    drivingOriginKey(district.location),
+    override ? [override.minutes, override.distanceKm, override.coordinates] : 'estimate',
+  ]);
   const cached = routeCache.get(cacheKey);
   if (cached) return cached;
+
+  if (travelMode === 'driving') {
+    const route = drivingRoute(friend, district, override);
+    cacheSet(routeCache, cacheKey, route, 2048);
+    return route;
+  }
 
   const directDistance = distanceKm(friend.location, district.location);
   const directCost =
@@ -366,6 +473,7 @@ export function planRoute(friend: Friend, district: District): PersonRoute {
 export function rankDistricts(
   friends: Friend[],
   strategy: 'balanced' | 'total' | 'fair',
+  drivingRoutes?: DrivingRouteOverrides,
 ): Recommendation[] {
   if (friends.length === 0) return [];
   const weights = friends.map((friend) =>
@@ -375,7 +483,7 @@ export function rankDistricts(
   const averageWeight = weightSum / friends.length;
   return districts
     .map((district): Recommendation => {
-      const routes = friends.map((friend) => planRoute(friend, district));
+      const routes = friends.map((friend) => planRoute(friend, district, drivingRoutes));
       if (routes.some((route) => !route.reachable)) {
         return {
           district,

@@ -548,6 +548,77 @@ main {
   color: #a5afa0;
   padding: 5px 0 1px;
 }
+.travel-mode-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3px;
+  margin-top: 11px;
+  padding: 3px;
+  border-radius: 8px;
+  background: #f1f4ef;
+}
+.travel-mode-options button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  min-height: 32px;
+  padding: 4px;
+  border-radius: 6px;
+  font-size: 11px;
+  color: #788779;
+  white-space: nowrap;
+}
+.travel-mode-options button.active {
+  background: #fff;
+  color: var(--green);
+  font-weight: 650;
+  box-shadow: 0 1px 4px #304b3610;
+}
+.travel-mode-options button:hover {
+  color: var(--green);
+}
+.driving-status {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #e1e9dc;
+  border-radius: 8px;
+  background: #f6f8f1;
+  color: #60765c;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.driving-status > svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.driving-status > span {
+  flex: 1;
+}
+.driving-status > button {
+  display: grid;
+  place-items: center;
+  min-width: 28px;
+  min-height: 28px;
+  margin: -5px;
+  border-radius: 5px;
+}
+.driving-status.has-error {
+  background: #fbf7ef;
+  color: #92724c;
+  border-color: #eee4d1;
+}
+.loading-spin {
+  animation: driving-loading 1.2s linear infinite;
+}
+@keyframes driving-loading {
+  to {
+    transform: rotate(360deg);
+  }
+}
 .friend-preference {
   display: flex;
   justify-content: space-between;

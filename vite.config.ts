@@ -8,10 +8,14 @@ export default defineConfig(({ mode }) => {
     plugins: [
       svelte(),
       {
-        name: 'local-address-api',
+        name: 'local-routing-apis',
         configureServer(server) {
           server.middlewares.use('/api/geocode', async (req, res) => {
             const { default: handler } = await import('./api/geocode');
+            await handler(req, res);
+          });
+          server.middlewares.use('/api/driving', async (req, res) => {
+            const { default: handler } = await import('./api/driving');
             await handler(req, res);
           });
         },

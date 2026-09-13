@@ -14,7 +14,6 @@
     Info,
     Check,
     TrainFront,
-    Footprints,
     CircleHelp,
     Heart,
     LocateFixed,
@@ -22,13 +21,17 @@
     Scale,
     Zap,
     CheckCheck,
+    Car,
+    LoaderCircle,
   } from 'lucide-svelte';
   import CityMap from './lib/components/CityMap.svelte';
   import AddressInput from './lib/components/AddressInput.svelte';
   import RouteDetail from './lib/components/RouteDetail.svelte';
   import { defaultFriends, districts, dataInfo, metroLines, metroStations } from './lib/data';
   import { rankDistricts } from './lib/routing';
-  import type { Friend, Coordinate } from './lib/types';
+  import { loadDrivingRoutes } from './lib/driving';
+  import { parseSavedPlan } from './lib/plan';
+  import type { Friend, Coordinate, TravelMode, DrivingRouteOverrides } from './lib/types';
 
   type Strategy = 'balanced' | 'total' | 'fair';
   const palette = [
@@ -55,8 +58,20 @@
   let toastTimer: ReturnType<typeof setTimeout>;
   let stored = $state(false);
   let mobileTab = $state<'friends' | 'map' | 'results'>('map');
+  let drivingRoutes = $state<DrivingRouteOverrides>({});
+  let drivingLoading = $state(false);
+  let drivingError = $state('');
+  let drivingRetry = $state(0);
+  let lastDrivingRetry = 0;
+  const hasDrivers = $derived(friends.some((friend) => friend.travelMode === 'driving'));
+  // Only location/mode changes trigger network work, never names, weights or strategy.
+  const drivingOrigins = $derived(
+    JSON.stringify(
+      friends.filter((friend) => friend.travelMode === 'driving').map((friend) => friend.location),
+    ),
+  );
   const recommendations = $derived(
-    rankDistricts(friends, strategy).filter((r) => Number.isFinite(r.score)),
+    rankDistricts(friends, strategy, drivingRoutes).filter((r) => Number.isFinite(r.score)),
   );
   const selected = $derived(
     recommendations.find((r) => r.district.id === selectedId) ?? recommendations[0],
@@ -88,6 +103,7 @@
         location: { ...station.location },
         color: palette.find((c) => !used.has(c)) ?? palette[0],
         weight: 1,
+        travelMode: 'transit',
       },
     ];
     selectedId = '';
@@ -136,6 +152,11 @@
     selectedId = '';
     detailOpen = false;
   }
+  function setTravelMode(id: string, travelMode: TravelMode) {
+    friends = friends.map((friend) => (friend.id === id ? { ...friend, travelMode } : friend));
+    selectedId = '';
+    detailOpen = false;
+  }
   function reset() {
     friends = cloneDefaults();
     strategy = 'balanced';
@@ -151,31 +172,10 @@
 
   onMount(() => {
     try {
-      const saved = JSON.parse(localStorage.getItem('eatwhere:plan:v1') ?? 'null');
-      if (
-        Array.isArray(saved?.friends) &&
-        saved.friends.length >= 2 &&
-        saved.friends.length <= 8 &&
-        saved.friends.every(
-          (f: Friend) =>
-            typeof f.id === 'string' &&
-            typeof f.name === 'string' &&
-            f.name.length <= 20 &&
-            typeof f.address === 'string' &&
-            f.address.length <= 200 &&
-            /^#[0-9a-f]{6}$/i.test(f.color) &&
-            Number.isFinite(f.weight) &&
-            f.weight >= 0.2 &&
-            f.weight <= 2 &&
-            f.location?.lng >= 113.7 &&
-            f.location.lng <= 114.65 &&
-            f.location.lat >= 22.38 &&
-            f.location.lat <= 22.9,
-        ) &&
-        new Set(saved.friends.map((f: Friend) => f.id)).size === saved.friends.length
-      ) {
+      const saved = parseSavedPlan(localStorage.getItem('eatwhere:plan:v1'));
+      if (saved) {
         friends = saved.friends;
-        if (['balanced', 'total', 'fair'].includes(saved.strategy)) strategy = saved.strategy;
+        strategy = saved.strategy;
       }
     } catch {
       /* Unavailable or outdated browser storage does not prevent planning. */
@@ -193,6 +193,40 @@
         stored = false;
       }
     }
+  });
+  $effect(() => {
+    const origins: Coordinate[] = JSON.parse(drivingOrigins);
+    const refresh = drivingRetry !== lastDrivingRetry;
+    lastDrivingRetry = drivingRetry;
+    if (!ready) return;
+    if (!origins.length) {
+      drivingLoading = false;
+      drivingError = '';
+      drivingRoutes = {};
+      return;
+    }
+    const controller = new AbortController();
+    drivingLoading = true;
+    drivingError = '';
+    const timer = setTimeout(async () => {
+      try {
+        const result = await loadDrivingRoutes(origins, controller.signal, refresh);
+        if (controller.signal.aborted) return;
+        drivingRoutes = result.routes;
+        drivingError = result.errors[0] ?? '';
+      } catch {
+        if (!controller.signal.aborted) {
+          drivingRoutes = {};
+          drivingError = '驾车估时暂不可用，已使用粗略估算。';
+        }
+      } finally {
+        if (!controller.signal.aborted) drivingLoading = false;
+      }
+    }, 300);
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
   });
 </script>
 
@@ -226,8 +260,8 @@
       <p>把出发点交给我们，把时间留给见面。</p>
     </div>
     <div class="heading-mode">
-      <span class="mode-icon"><Footprints size={18} /><span>+</span><TrainFront size={19} /></span>
-      <div><strong>绿色出行，刚刚好</strong><span>步行 + 地铁 · 深圳全城</span></div>
+      <span class="mode-icon"><TrainFront size={19} /><span>/</span><Car size={19} /></span>
+      <div><strong>各自出发，一起抵达</strong><span>步行 + 地铁 · 开车 / 打车</span></div>
     </div>
   </section>
 
@@ -286,6 +320,20 @@
               onchange={(address, location) => updateLocation(friend.id, address, location)}
               onpick={() => beginPick(friend.id)}
             />
+            <div class="travel-mode-options" role="group" aria-label={`${friend.name}的出行方式`}>
+              <button
+                class:active={friend.travelMode !== 'driving'}
+                aria-pressed={friend.travelMode !== 'driving'}
+                onclick={() => setTravelMode(friend.id, 'transit')}
+                ><TrainFront size={13} />步行 + 地铁</button
+              >
+              <button
+                class:active={friend.travelMode === 'driving'}
+                aria-pressed={friend.travelMode === 'driving'}
+                onclick={() => setTravelMode(friend.id, 'driving')}
+                ><Car size={13} />开车 / 打车</button
+              >
+            </div>
             <div class="friend-preference">
               <span
                 >通勤优先级 <button
@@ -317,7 +365,7 @@
         <Heart size={17} strokeWidth={1.6} />
         <p>
           <strong>多一点体谅，少一点路程</strong><span
-            >愿意多坐一会儿地铁？把自己的优先级往左调，让推荐更靠近朋友。</span
+            >愿意多花一点时间在路上？把自己的优先级往左调，让推荐更靠近朋友。</span
           >
         </p>
       </div>
@@ -360,6 +408,27 @@
       class:mobile-visible={mobileTab === 'results'}
       aria-label="商圈推荐"
     >
+      {#if hasDrivers}
+        <div class="driving-status" class:has-error={Boolean(drivingError)} role="status">
+          {#if drivingLoading}<LoaderCircle size={14} class="loading-spin" />{:else}<Car
+              size={14}
+            />{/if}
+          <span
+            >{drivingLoading
+              ? '正在更新驾车估时…'
+              : drivingError
+                ? drivingError.includes('粗估') || drivingError.includes('粗略')
+                  ? drivingError
+                  : `${drivingError} 当前使用粗略估算。`
+                : '已更新高德驾车估时 · 含到店步行'}</span
+          >
+          {#if !drivingLoading}<button
+              onclick={() => (drivingRetry += 1)}
+              aria-label="刷新驾车估时"
+              title="刷新驾车估时"><RotateCcw size={13} /></button
+            >{/if}
+        </div>
+      {/if}
       {#if detailOpen && selected}
         <RouteDetail recommendation={selected} {friends} onback={() => (detailOpen = false)} />
       {:else}
@@ -416,9 +485,11 @@
                   {#each recommendation.routes as route}{@const person = friends.find(
                       (f) => f.id === route.friendId,
                     )}{#if person}<span
-                        ><i style={`background:${person.color}`}></i>{person.name}<strong
-                          >{route.minutes}<small> 分</small></strong
-                        ></span
+                        title={`${person.name} · ${person.travelMode === 'driving' ? (route.source === 'amap' ? '开车 / 打车 · 高德估时' : '开车 / 打车 · 粗略估算') : '步行 + 地铁'}`}
+                        ><i style={`background:${person.color}`}
+                        ></i>{person.name}{#if person.travelMode === 'driving'}<Car
+                            size={11}
+                          />{/if}<strong>{route.minutes}<small> 分</small></strong></span
                       >{/if}{/each}
                 </div>
                 <div class="rec-footer">
@@ -441,11 +512,15 @@
           >
         {:else}<div class="empty-results">
             <Compass size={32} />
-            <h3>再靠近地铁一点吧</h3>
-            <p>有朋友的出发点离现有路网太远。请检查地址，或选择附近的地铁站。</p>
+            <h3>调整一下出发方式吧</h3>
+            <p>有朋友离地铁路网太远。可选择附近地铁站，或把这位朋友改为开车 / 打车。</p>
           </div>{/if}
         <div class="results-footnote">
-          <Info size={13} /><span>按地铁线路估算，出发前请确认实际运营情况。</span>
+          <Info size={13} /><span
+            >{hasDrivers
+              ? '按每人的出行方式比较，实际用时随路况变化。'
+              : '按地铁线路估算，出发前请确认实际运营情况。'}</span
+          >
         </div>
       {/if}
     </aside>
@@ -482,10 +557,15 @@
     <div class="explain-row">
       <span>01</span>
       <div>
-        <h3>按真实地铁连接，计算预计用时</h3>
+        <h3>各选出行方式，一起比较用时</h3>
         <p>
           路线包含进出站步行、列车行驶、候车和换乘。内置 {metroLines.length} 条线路、{metroStations.length}
           个站点，选择多座附近车站比较路线。步行按距离估算，不是道路导航；不提供末班车和实时到站预测。
+        </p>
+        <p>
+          开车 / 打车优先使用高德道路路线和估时，并预留 5
+          分钟到店步行，等车与找车位另计。接口不可用时按直线距离 × 1.35、平均 30 km/h
+          粗估，地图长虚线仅表示出发方向。出发前请核实路况。
         </p>
       </div>
     </div>
@@ -523,8 +603,8 @@
         >
       </p>
       <p>
-        计划仅保存在本设备浏览器。点击详细地址搜索时，地址会发送给高德地图；地图底图由 OpenStreetMap
-        提供。
+        计划仅保存在本设备浏览器。详细地址搜索会向高德发送查询词；选择开车 /
+        打车时会发送出发坐标和候选商圈坐标以查询路线，结果短暂缓存。地图底图由 OpenStreetMap 提供。
       </p>
     </div>
     <button class="primary-button" onclick={() => helpDialog.close()}
@@ -536,7 +616,7 @@
   <div class="dialog-content">
     <span class="dialog-symbol"><RotateCcw size={24} /></span>
     <h2>重新来一份约饭计划？</h2>
-    <p>当前朋友、地址和权重将恢复为三人示例。</p>
+    <p>当前朋友、地址、出行方式和权重将恢复为三人示例。</p>
     <div class="dialog-actions">
       <button class="secondary-button" onclick={() => resetDialog.close()}>保留当前计划</button
       ><button class="primary-button" onclick={reset}>恢复示例</button>

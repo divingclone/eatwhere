@@ -4,6 +4,7 @@
   import 'leaflet/dist/leaflet.css';
   import {
     ChevronDown,
+    CarFront,
     LocateFixed,
     MapPin,
     Minus,
@@ -49,8 +50,29 @@
     [22.507, 113.866],
     [22.713, 114.258],
   ];
-  const legendLines = metroLines.slice(0, 4);
   const pickedFriend = $derived(friends.find((friend) => friend.id === pickingFriendId));
+  const selectedRecommendation = $derived(
+    recommendations.find((recommendation) => recommendation.district.id === selectedId),
+  );
+  const hasDriving = $derived(friends.some((friend) => friend.travelMode === 'driving'));
+  const hasTransit = $derived(friends.some((friend) => friend.travelMode !== 'driving'));
+  const hasEstimatedDriving = $derived(
+    selectedRecommendation?.routes.some(
+      (route) => route.travelMode === 'driving' && route.source !== 'amap',
+    ) ?? hasDriving,
+  );
+  const hasRoadDriving = $derived(
+    selectedRecommendation?.routes.some(
+      (route) => route.travelMode === 'driving' && route.source === 'amap',
+    ) ?? false,
+  );
+  const routeMapNote = $derived(
+    hasEstimatedDriving
+      ? `驾车长虚线仅为方向示意${hasTransit ? ' · 地铁按站点估算' : '，非道路导航'}`
+      : hasRoadDriving
+        ? `驾车显示高德道路路线${hasTransit ? ' · 地铁按站点估算' : ''}`
+        : '地铁路线基于站点估算',
+  );
 
   const latLng = (location: Coordinate): L.LatLngTuple => [location.lat, location.lng];
 
@@ -273,18 +295,23 @@
     for (const route of selected.routes) {
       const friend = friends.find((item) => item.id === route.friendId);
       if (!friend || !route.reachable) continue;
+      const driving = (route.travelMode ?? friend.travelMode ?? 'transit') === 'driving';
       const legs = route.steps.filter((step) => step.coordinates && step.coordinates.length >= 2);
       const paths =
         legs.length > 0
-          ? legs.map((step) => ({ coordinates: step.coordinates!, walk: step.type === 'walk' }))
-          : [{ coordinates: route.coordinates, walk: false }];
+          ? legs.map((step) => ({ coordinates: step.coordinates!, type: step.type }))
+          : [{ coordinates: route.coordinates, type: driving ? 'drive' : 'metro' }];
       for (const path of paths) {
         if (path.coordinates.length < 2) continue;
+        const walk = path.type === 'walk';
+        const estimatedDrive = path.type === 'drive' && route.source !== 'amap';
+        const dashArray = walk ? '3 7' : estimatedDrive ? '13 10' : undefined;
         const coordinates = path.coordinates.map(latLng);
         L.polyline(coordinates, {
           color: '#ffffff',
-          weight: path.walk ? 6.5 : 7,
+          weight: walk ? 6.5 : 7,
           opacity: 0.9,
+          dashArray,
           pane: 'routes',
           interactive: false,
           lineCap: 'round',
@@ -292,9 +319,10 @@
         }).addTo(routeLayer);
         L.polyline(coordinates, {
           color: friend.color,
-          weight: path.walk ? 3 : 4.1,
-          opacity: path.walk ? 0.9 : 0.88,
-          dashArray: path.walk ? '3 7' : undefined,
+          weight: walk ? 3 : 4.1,
+          opacity: walk ? 0.9 : 0.88,
+          dashArray,
+          className: `friend-route route-${path.type}${estimatedDrive ? ' is-direction-only' : ''}`,
           pane: 'routes',
           interactive: false,
           lineCap: 'round',
@@ -318,7 +346,11 @@
         createElement('span', 'person-map-avatar', Array.from(friend.name)[0] || '友'),
       );
       const label = createElement('div', 'person-map-label');
-      label.appendChild(createElement('strong', 'person-map-name', friend.name || '朋友'));
+      const heading = createElement('div', 'person-map-heading');
+      heading.appendChild(createElement('strong', 'person-map-name', friend.name || '朋友'));
+      const driving = (route?.travelMode ?? friend.travelMode ?? 'transit') === 'driving';
+      heading.appendChild(createElement('span', 'person-map-mode', driving ? '开车/打车' : '地铁'));
+      label.appendChild(heading);
       if (route?.reachable)
         label.appendChild(createElement('span', 'person-map-time', `${route.minutes} 分钟`));
       person.appendChild(label);
@@ -344,7 +376,7 @@
     class="map-canvas"
     class:is-picking={Boolean(pickingFriendId)}
     bind:this={container}
-    aria-label="深圳约饭地图，显示地铁、商圈与朋友通勤路线"
+    aria-label="深圳约饭地图，显示商圈与朋友各自的出行路线，可切换地铁图层"
   ></div>
 
   <div class="map-tools">
@@ -382,20 +414,48 @@
 
   {#if tileUnavailable}
     <div class="tile-note" role="status">
-      <MapPin size={14} />底图暂时无法加载，地铁与路线仍可操作
+      <MapPin size={14} />底图暂时无法加载，商圈与路线仍可操作
     </div>
   {/if}
 
   <div class="map-bottom-left">
     {#if legendOpen}
       <div class="legend-popover">
-        <div class="legend-heading">深圳地铁线路<span>{metroLines.length} 条线路</span></div>
-        <div class="all-lines">
-          {#each metroLines as line (line.id)}
-            <span class="legend-line"><i style:background={line.color}></i>{line.name}</span>
-          {/each}
+        <div class="legend-heading">出行路线<span>颜色对应每位朋友</span></div>
+        <div class="route-legend-items">
+          {#if hasTransit}
+            <div>
+              <i class="route-swatch"></i><TrainFront size={13} /><span>地铁 · 按站点连接</span>
+            </div>
+          {/if}
+          {#if hasRoadDriving}
+            <div>
+              <i class="route-swatch"></i><CarFront size={13} /><span>开车/打车 · 高德道路路线</span
+              >
+            </div>
+          {/if}
+          {#if hasEstimatedDriving}
+            <div>
+              <i class="route-swatch drive-estimate"></i><CarFront size={13} /><span
+                >开车/打车 · 方向示意</span
+              >
+            </div>
+          {/if}
+          <div><i class="route-swatch walking"></i><span>短虚线 · 步行</span></div>
         </div>
-        <div class="legend-route-note"><i></i>实线为地铁通勤，虚线为步行</div>
+        {#if hasEstimatedDriving}
+          <p class="legend-route-note">驾车长虚线只连接起终点，不代表实际道路。</p>
+        {/if}
+        {#if showMetro}
+          <div class="legend-heading metro-legend-heading">
+            地铁图层<span>{metroLines.length} 条线路</span>
+          </div>
+          <div class="all-lines">
+            {#each metroLines as line (line.id)}
+              <span class="legend-line"><i style:background={line.color}></i>{line.name}</span>
+            {/each}
+          </div>
+        {/if}
       </div>
     {/if}
     <button
@@ -404,10 +464,10 @@
       aria-expanded={legendOpen}
       onclick={() => (legendOpen = !legendOpen)}
     >
-      <span class="legend-label">地铁线路</span>
+      <span class="legend-label">出行路线</span>
       <span class="mini-lines">
-        {#each legendLines as line (line.id)}
-          <i style:background={line.color} title={line.name}></i>
+        {#each friends.slice(0, 4) as friend (friend.id)}
+          <i style:background={friend.color} title={friend.name}></i>
         {/each}
       </span>
       <span class="legend-more">图例</span><ChevronDown
@@ -415,7 +475,7 @@
         class={legendOpen ? 'is-open' : ''}
       />
     </button>
-    <span class="map-scale-note">路线基于地铁站点估算</span>
+    <span class="map-scale-note">{routeMapNote}</span>
   </div>
 
   <div class="map-controls">
@@ -581,6 +641,7 @@
     align-items: flex-start;
     flex-direction: column;
     gap: 7px;
+    max-width: calc(100% - 86px);
   }
   .legend-button {
     display: flex;
@@ -621,15 +682,21 @@
     transform: rotate(180deg);
   }
   .map-scale-note {
-    color: #7f8a80;
-    font-size: 9px;
-    background: #ffffffb3;
-    padding: 2px 5px;
+    color: #657762;
+    font-size: 10px;
+    line-height: 1.5;
+    max-width: 310px;
+    background: #ffffffeb;
+    padding: 3px 6px;
     border-radius: 3px;
     letter-spacing: 0.02em;
   }
   .legend-popover {
-    width: 249px;
+    width: 268px;
+    max-width: 100%;
+    max-height: 270px;
+    overflow: auto;
+    box-sizing: border-box;
     padding: 14px;
     background: #fffffffc;
     border: 1px solid #e0e7dc;
@@ -654,7 +721,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px 14px;
-    max-height: 217px;
+    max-height: 156px;
     overflow: auto;
   }
   .legend-line {
@@ -670,19 +737,40 @@
     border-radius: 5px;
     flex: 0 0 16px;
   }
-  .legend-route-note {
+  .route-legend-items {
+    display: grid;
+    gap: 10px;
+    color: #657661;
+    font-size: 10px;
+  }
+  .route-legend-items > div {
     display: flex;
     align-items: center;
     gap: 7px;
+  }
+  .route-swatch {
+    flex: 0 0 29px;
+    width: 29px;
+    height: 3px;
+    border-radius: 2px;
+    background: #78927c;
+  }
+  .route-swatch.drive-estimate {
+    background: repeating-linear-gradient(to right, #78927c 0 11px, transparent 11px 18px);
+  }
+  .route-swatch.walking {
+    background: repeating-linear-gradient(to right, #78927c 0 3px, transparent 3px 7px);
+  }
+  .legend-route-note {
+    margin: 12px 0 0;
+    color: #7c896f;
+    font-size: 10px;
+    line-height: 1.6;
+  }
+  .metro-legend-heading {
     border-top: 1px solid #ecf0e9;
     margin-top: 13px;
-    padding-top: 10px;
-    color: #929c92;
-    font-size: 9px;
-  }
-  .legend-route-note i {
-    width: 16px;
-    border-top: 2px dashed #829886;
+    padding-top: 12px;
   }
   .map-controls {
     position: absolute;
@@ -921,6 +1009,23 @@
     font-size: 10px;
     font-weight: 650;
     line-height: 1.25;
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  :global(.person-map-heading) {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  :global(.person-map-mode) {
+    color: #758470;
+    background: #edf2e8;
+    border-radius: 3px;
+    padding: 2px 3px;
+    font-size: 8px;
+    line-height: 1;
+    font-weight: 500;
   }
   :global(.person-map-time) {
     color: var(--person-color);

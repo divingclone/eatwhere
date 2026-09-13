@@ -1,7 +1,13 @@
 import { describe, expect, test } from 'bun:test';
 import { dataInfo, defaultFriends, districts, metroLines, metroStations } from './data';
-import { distanceKm, planRoute, rankDistricts, routingAssumptions } from './routing';
-import type { Friend } from './types';
+import {
+  distanceKm,
+  drivingOriginKey,
+  planRoute,
+  rankDistricts,
+  routingAssumptions,
+} from './routing';
+import type { DrivingRouteData, DrivingRouteOverrides, Friend } from './types';
 
 describe('bundled Shenzhen network', () => {
   test('every line references valid stations and shared interchanges connect the network', () => {
@@ -166,5 +172,193 @@ describe('meeting recommendation weights', () => {
         'fair',
       )[0]!.score,
     ).toBeFinite();
+  });
+});
+
+describe('per-person driving and mixed travel modes', () => {
+  const driver: Friend = { ...defaultFriends[0]!, travelMode: 'driving' };
+  const district = districts[0]!;
+  const roadData: DrivingRouteData = {
+    districtId: district.id,
+    minutes: 19.6,
+    distanceKm: 12.3,
+    coordinates: [driver.location, { lng: 113.99, lat: 22.55 }, district.location],
+  };
+  const overrides: DrivingRouteOverrides = { [drivingOriginKey(driver.location)]: [roadData] };
+
+  test('old saved friends without a mode reproduce transit routes and rankings', () => {
+    const legacyFriends = defaultFriends.map((friend) => {
+      const legacy = { ...friend };
+      delete legacy.travelMode;
+      return legacy;
+    });
+    for (const strategy of ['balanced', 'total', 'fair'] as const) {
+      expect(rankDistricts(legacyFriends, strategy)).toEqual(
+        rankDistricts(defaultFriends, strategy),
+      );
+    }
+    expect(planRoute(legacyFriends[0]!, district)).toBe(planRoute(defaultFriends[0]!, district));
+    expect(planRoute(legacyFriends[0]!, district).travelMode).toBe('transit');
+  });
+
+  test('estimates road distance and driving time, then adds a separate five-minute walk', () => {
+    const route = planRoute(driver, district);
+    const estimatedDistance = distanceKm(driver.location, district.location) * 1.35;
+    expect(route.source).toBe('estimate');
+    expect(route.travelMode).toBe('driving');
+    expect(route.distanceKm).toBeCloseTo(estimatedDistance, 8);
+    expect(route.steps.map((step) => step.type)).toEqual(['drive', 'walk']);
+    expect(route.steps[0]!.minutes).toBe(Math.max(1, Math.round((estimatedDistance / 30) * 60)));
+    expect(route.steps[0]!.coordinates).toEqual([driver.location, district.location]);
+    expect(route.steps[1]!.coordinates).toEqual([district.location]);
+    expect(route.walkingMinutes).toBe(5);
+    expect(route.transfers).toBe(0);
+    expect(route.minutes).toBe(route.steps.reduce((sum, step) => sum + step.minutes, 0));
+    const samePlace = planRoute({ ...driver, location: district.location }, district);
+    expect(samePlace.minutes).toBe(6);
+    expect(samePlace.steps[0]!.coordinates).toEqual([district.location]);
+    expect(samePlace.distanceKm).toBe(0);
+  });
+
+  test('changing the mode bypasses cached transit routes and supports remote driving origins', () => {
+    const transit = planRoute(defaultFriends[0]!, district);
+    const driving = planRoute(driver, district);
+    expect(driving).not.toBe(transit);
+    expect(driving.steps[0]!.type).toBe('drive');
+    expect(planRoute({ ...driver, travelMode: 'transit' }, district)).toBe(transit);
+    const remote: Friend = { ...driver, location: { lng: 113.5, lat: 22.4 } };
+    expect(planRoute({ ...remote, travelMode: 'transit' }, district).reachable).toBe(false);
+    expect(
+      rankDistricts([remote, defaultFriends[1]!], 'balanced').every((item) =>
+        Number.isFinite(item.score),
+      ),
+    ).toBe(true);
+    expect(planRoute({ ...remote, location: { lng: NaN, lat: 22.4 } }, district).reachable).toBe(
+      false,
+    );
+  });
+
+  test('API roads replace estimates without absorbing or drawing the arrival walk', () => {
+    const estimated = planRoute(driver, district);
+    const road = planRoute(driver, district, overrides);
+    expect(road).not.toBe(estimated);
+    expect(road.source).toBe('amap');
+    expect(road.minutes).toBe(25);
+    expect(road.distanceKm).toBe(12.3);
+    expect(road.steps[0]!.coordinates).toEqual(roadData.coordinates);
+    expect(road.steps[1]!.minutes).toBe(5);
+    expect(road.steps[1]!.coordinates).toEqual([district.location]);
+    expect(road.minutes).toBe(road.steps.reduce((sum, step) => sum + step.minutes, 0));
+    expect(planRoute(driver, district)).toBe(estimated);
+    expect(planRoute({ ...driver, weight: 0.2 }, district, overrides)).toBe(road);
+    const refreshed = {
+      [drivingOriginKey(driver.location)]: [{ ...roadData, minutes: 31.4 }],
+    };
+    expect(planRoute(driver, district, refreshed).minutes).toBe(36);
+    expect(planRoute(driver, district, refreshed)).not.toBe(road);
+    expect(planRoute(defaultFriends[0]!, district, overrides)).toBe(
+      planRoute(defaultFriends[0]!, district),
+    );
+  });
+
+  test('overrides follow exact coordinates, never friend IDs or a previous address', () => {
+    const renamed = { ...driver, id: 'another-person', address: '同一位置的新名称' };
+    expect(planRoute(renamed, district, overrides).source).toBe('amap');
+    const moved = {
+      ...driver,
+      address: '新出发点',
+      location: { ...driver.location, lng: driver.location.lng + 0.01 },
+    };
+    expect(drivingOriginKey(moved.location)).not.toBe(drivingOriginKey(driver.location));
+    expect(planRoute(moved, district, overrides)).toBe(planRoute(moved, district));
+    expect(planRoute(moved, district, overrides).source).toBe('estimate');
+    expect(planRoute(driver, districts[1]!, overrides).source).toBe('estimate');
+    const nearButDifferent = { ...driver.location, lng: driver.location.lng + 0.00000001 };
+    expect(drivingOriginKey(nearButDifferent)).not.toBe(drivingOriginKey(driver.location));
+  });
+
+  test('invalid API fields fall back to the estimate and do not poison route caches', () => {
+    const invalidCandidates: unknown[] = [
+      null,
+      { ...roadData, minutes: NaN },
+      { ...roadData, minutes: Infinity },
+      { ...roadData, minutes: -1 },
+      { ...roadData, minutes: '20' },
+      { ...roadData, distanceKm: -1 },
+      { ...roadData, distanceKm: Infinity },
+      { ...roadData, distanceKm: undefined },
+      { ...roadData, coordinates: [] },
+      { ...roadData, coordinates: null },
+      { ...roadData, coordinates: [null] },
+      { ...roadData, coordinates: [{ lng: 181, lat: 22.5 }] },
+      { ...roadData, coordinates: [{ lng: 114, lat: NaN }] },
+      { ...roadData, coordinates: [{ lng: '114', lat: 22.5 }] },
+    ];
+    const estimated = planRoute(driver, district);
+    for (const candidate of invalidCandidates) {
+      const invalid = { [drivingOriginKey(driver.location)]: [candidate] } as DrivingRouteOverrides;
+      expect(planRoute(driver, district, invalid)).toBe(estimated);
+    }
+    const wrongList = { [drivingOriginKey(driver.location)]: {} } as DrivingRouteOverrides;
+    expect(planRoute(driver, district, wrongList)).toBe(estimated);
+    const withValidAlternative = {
+      [drivingOriginKey(driver.location)]: [...invalidCandidates, roadData],
+    } as DrivingRouteOverrides;
+    expect(planRoute(driver, district, withValidAlternative).source).toBe('amap');
+  });
+
+  test('mixed-mode scores use each selected mode and each personal weight', () => {
+    const friends = [defaultFriends[1]!, { ...driver, weight: 0.2 }];
+    for (const strategy of ['balanced', 'total', 'fair'] as const) {
+      const result = rankDistricts(friends, strategy, overrides);
+      const item = result.find((candidate) => candidate.district.id === district.id)!;
+      expect(item.routes[0]!.travelMode).toBe('transit');
+      expect(item.routes[1]!.travelMode).toBe('driving');
+      expect(item.routes[1]!.source).toBe('amap');
+      expect(item.routes[1]!.minutes).toBe(25);
+      const transitTime = item.routes[0]!.minutes;
+      const mean = (transitTime + 25 * 0.2) / 1.2;
+      const max = Math.max(transitTime / 0.6, (25 * 0.2) / 0.6);
+      expect(item.score).toBeCloseTo(
+        strategy === 'total'
+          ? mean
+          : strategy === 'fair'
+            ? max + 0.1 * mean
+            : 0.7 * mean + 0.3 * max,
+        8,
+      );
+    }
+  });
+
+  test('driving weights change the winning district while retaining the same road calculations', () => {
+    const drivers: Friend[] = [driver, { ...defaultFriends[1]!, travelMode: 'driving' }];
+    const roadOverrides = Object.fromEntries(
+      drivers.map((friend, personIndex) => [
+        drivingOriginKey(friend.location),
+        districts.map((destination, index) => ({
+          districtId: destination.id,
+          minutes: index < 2 ? (index === personIndex ? 10 : 50) : 90,
+          distanceKm: 10,
+          coordinates: [friend.location, destination.location],
+        })),
+      ]),
+    );
+    const westPriority = rankDistricts(
+      [{ ...drivers[0]!, weight: 2 }, drivers[1]!],
+      'balanced',
+      roadOverrides,
+    );
+    const eastPriority = rankDistricts(
+      [{ ...drivers[0]!, weight: 0.2 }, drivers[1]!],
+      'balanced',
+      roadOverrides,
+    );
+    expect(westPriority[0]!.district.id).toBe(districts[0]!.id);
+    expect(eastPriority[0]!.district.id).toBe(districts[1]!.id);
+    const sameDestination = eastPriority.find(
+      (item) => item.district.id === westPriority[0]!.district.id,
+    )!;
+    expect(sameDestination.routes[0]).toBe(westPriority[0]!.routes[0]);
+    expect(sameDestination.routes[1]).toBe(westPriority[0]!.routes[1]);
   });
 });
